@@ -48,10 +48,10 @@
 - marque, modele, anneeAchat $\twoheadrightarrow$ activite
 - marque, modele, anneeAchat $\nrightarrow$ infosMateriel
 - marque, modele, anneeAchat $\nrightarrow$ anneePeremption
-- categorie $\ntwoheadrightarrow$ categorie
+- categorie -|->> categorie
 - idUser $\nrightarrow$ mailUser, pwdUser, nomUser, prenomUser, adresseUser
 - idUser $\nrightarrow$ idAdh
-- idUser, mailR $\ntwoheadrightarrow$ typeRepas
+- idUser, mailR -|->> typeRepas
 - idResM $\twoheadrightarrow$ marque, modele, anneeAchat
 
 ### Contraintes contextuelles
