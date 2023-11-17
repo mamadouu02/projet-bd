@@ -22,23 +22,23 @@
 
 ```sql
 CREATE TABLE <table> ((<colonne> <type>
-					[DEFAULT <expression>] <contrainte_c>+)*
-					[<contrainte_t>*]);
+			[DEFAULT <expression>] <contrainte_c>+)*
+			[<contrainte_t>*]);
 
 <contrainte_c> := [CONSTRAINT <nom_c>]
-				( [NOT] NULL
-				| UNIQUE
-				| PRIMARY KEY
-				| REFERENCES <table>[(<colonne>)] [ON DELETE CASCADE]
-				| CHECK (contraintes de valeurs)
-				)
+		( [NOT] NULL
+		| UNIQUE
+		| PRIMARY KEY
+		| REFERENCES <table>[(<colonne>)] [ON DELETE CASCADE]
+		| CHECK (contraintes de valeurs)
+		)
 
 <contrainte_t> := [CONSTRAINT <nom_c>]
-				( (UNIQUE | PRIMARY KEY)(<colonne>*)
-				| FOREIGN KEY (<colonne>*)
-				REFERENCES <table>[(<colonne>*)] [ON DELETE CASCADE]
-				| CHECK (<condition>)
-				)
+		( (UNIQUE | PRIMARY KEY)(<colonne>*)
+		| FOREIGN KEY (<colonne>*)
+		REFERENCES <table>[(<colonne>*)] [ON DELETE CASCADE]
+		| CHECK (<condition>)
+		)
 ```
 
 Exemple :
