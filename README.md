@@ -3,9 +3,9 @@
 ## Analyse statique
 
 ### Propriétés
-- mailR, nomR, telR, secteurGeo, dateOuverture, dateFermeture, placesRepas, placesNuitee, infosR, typePaiement, prixNuitee, typeRepas, prixRepas
-- anneeF, rangF, nomF, dateF, dureeF, placesF, infosF, prixF, activite
-- marque, modele, anneeAchat, categorie, nbPiecesLot, prixCaution, infosMateriel, anneePeremption
+- mailR, nomR, telR, secteurGeo, dateOuv, dateFerm, nbPlacesRepas, nbPlacesNuit, infosR, typePaiement, prixNuit, typeRepas, prixRepas
+- anneeF, rangF, nomF, dateF, dureeF, nbPlacesF, infosF, prixF, activite
+- marque, modele, anneeAchat, categorie, nbPiecesLot, prixCaution, infosM, anneePeremption
 - idUser, mailUser, pwdUser, nomUser, prenomUser, adresseUser, idAdh
 - dateResR, heureResR, nbNuits, nbRepas, prixResR
 - rangLA
@@ -13,10 +13,10 @@
 - coutResR, coutResF, sommeDue, sommeRemboursee
 
 ### Dépendances fonctionelles
-- mailR $\to$ nomR, telR, secteurGeo, dateOuverture, dateFermeture, placesRepas, placesNuitee, infosR, typePaiement, prixNuitee, typeRepas
+- mailR $\to$ nomR, telR, secteurGeo, dateOuv, dateFerm, nbPlacesRepas, nbPlacesNuit, infosR, typePaiement, prixNuit, typeRepas
 - mailR, typeRepas $\to$ prixRepas
-- anneeF, rangF $\to$ nomF, dateF, dureeF, placesF, infosF, prixF, activite
-- marque, modele, anneeAchat $\to$ categorie, nbPiecesLot, prixCaution, activite, infosMateriel, anneePeremption
+- anneeF, rangF $\to$ nomF, dateF, dureeF, nbPlacesF, infosF, prixF, activite
+- marque, modele, anneeAchat $\to$ categorie, nbPiecesLot, prixCaution, activite, infosM, anneePeremption
 - idUser $\to$ mailUser, pwdUser, nomUser, prenomUser, adresseUser, idAdh
 - idAdh $\to$ idUser
 - idUser, mailR $\to$ dateResR, heureResR, nbNuits, typeRepas
@@ -31,14 +31,14 @@
 - typePaiement $\in$ {espèce, chèque, carte-bleue}
 - typeRepas $\in$ {déjeuner, dîner, souper, casse-croûte}
 - activite $\in$ {randonnée, escalade, alpinisme, spéléologie, ski de rando, cascade de glace}
-- dateOuverture < dateFermeture
+- dateOuv < dateFerm
 - anneeAchat < anneePeremption
-- nbNuits ≤ placesNuitees
+- nbNuits ≤ nbPlacesNuits
 - nbPiecesRes ≤ nbPiecesLot
 - dateEmprunt < dateRetour + 2 semaines
 - nbPiecesManquantes ≤ nbPiecesRes
 - sommeRemboursee ≤ sommeDue
-- placesRepas, placesNuitee, prixNuitee, prixRepas, rangF, dureeF, placesF, prixF, nbPiecesLot, prixCaution, idUser, idAdh, prixResR, idResM, nbPiecesRes,  > 0
+- nbPlacesRepas, nbPlacesNuit, prixNuit, prixRepas, rangF, dureeF, nbPlacesF, prixF, nbPiecesLot, prixCaution, idUser, idAdh, prixResR, idResM, nbPiecesRes,  > 0
 - nbNuits, nbRepas, rangLA, nbPiecesManquantes, coutResR, coutResF, sommeDue, sommeRemboursee ≥ 0
 
 ### Contraintes de multiplicité
@@ -46,7 +46,7 @@
 - mailR $\twoheadrightarrow$ typeRepas
 - anneeF, rangF $\twoheadrightarrow$ activite
 - marque, modele, anneeAchat $\twoheadrightarrow$ activite
-- marque, modele, anneeAchat $\nrightarrow$ infosMateriel
+- marque, modele, anneeAchat $\nrightarrow$ infosM
 - marque, modele, anneeAchat $\nrightarrow$ anneePeremption
 - categorie -|->> categorie
 - idUser $\nrightarrow$ mailUser, pwdUser, nomUser, prenomUser, adresseUser
