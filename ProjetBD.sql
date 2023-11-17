@@ -62,3 +62,4 @@ create table REFUGE (
     typePaiement varchar not null check (typePaiement IN ('espèce', 'chèque', 'carte-bleue')),
     prixNuit double
 );
+
