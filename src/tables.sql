@@ -1,47 +1,47 @@
 /* GÉNÉRATION AUTOMATIQUE DES IDENTIFIANTS POUR CHACUNE DE NOS TABLES */
 
-CREATE SEQUENCE idUserSeq;
-CREATE SEQUENCE idAdhSeq;
-CREATE SEQUENCE idResMSeq;
+CREATE SEQUENCE id_user_seq;
+CREATE SEQUENCE id_adh_seq;
+CREATE SEQUENCE id_res_materiel_seq;
 
-/* Table Utilisateur */
-CREATE TABLE Utilisateur (
-    idUser INTEGER DEFAULT idUserSeq.NEXTVAL PRIMARY KEY,
-    mailUser VARCHAR(30),
-    idAdh INTEGER,
-    FOREIGN KEY (mailUser) REFERENCES Membre(mailUser),
-    FOREIGN KEY (idAdh) REFERENCES Adherent(idAdh)
+/* Table user */
+CREATE TABLE utilisateur (
+    id_user INTEGER DEFAULT id_user_seq.NEXTVAL PRIMARY KEY,
+    mail_user VARCHAR(30),
+    id_adh INTEGER,
+    FOREIGN KEY (mail_user) REFERENCES Membre(mail_user),
+    FOREIGN KEY (id_adh) REFERENCES Adherent(id_adh)
 );
 
-/* Table Membre */
-CREATE TABLE Membre (
-    idUser INTEGER NOT NULL,
-    mailUser VARCHAR(30) PRIMARY KEY,
-    pwdUser VARCHAR(30) NOT NULL,
-    nomUser VARCHAR(30) NOT NULL,
-    prenomUser VARCHAR(30) NOT NULL,
-    adresseUser VARCHAR(30) NOT NULL,
-    FOREIGN KEY (idUser) REFERENCES Utilisateur(idUser)
+/* Table membre */
+CREATE TABLE membre (
+    id_user INTEGER NOT NULL,
+    mail_user VARCHAR(30) PRIMARY KEY,
+    password VARCHAR(30) NOT NULL,
+    nom_user VARCHAR(30) NOT NULL,
+    prenom VARCHAR(30) NOT NULL,
+    adresse VARCHAR(30) NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES Utilisateur(id_user)
 );
 
-/* Table Adherent */
-CREATE TABLE Adherent (
-    idAdh INTEGER DEFAULT idAdhSeq.NEXTVAL PRIMARY KEY,
-    idUser INTEGER NOT NULL,
-    FOREIGN KEY (idUser) REFERENCES Utilisateur(idUser)
+/* Table adherent */
+CREATE TABLE adherent (
+    id_adh INTEGER DEFAULT id_adh_seq.NEXTVAL PRIMARY KEY,
+    id_user INTEGER NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES Utilisateur(id_user)
 );
 
-/* Table Refuge */
-CREATE TABLE Refuge (
-    mailR VARCHAR(30) PRIMARY KEY,
-    nomR VARCHAR(30) NOT NULL,
-    telR VARCHAR(12),
-    secteurGeo VARCHAR(30) NOT NULL,
-    dateOuv DATE NOT NULL,
-    dateFerm DATE NOT NULL CHECK (dateFerm > dateOuv),
-    nbPlacesRepas INTEGER NOT NULL,
-    nbPlacesNuit INTEGER NOT NULL,
-    infosR VARCHAR(30) NOT NULL,
-    typePaiement VARCHAR(30) NOT NULL CHECK (typePaiement IN ('espèce', 'chèque', 'carte-bleue')),
-    prixNuit NUMBER
+/* Table refuge */
+CREATE TABLE refuge (
+    mail_refuge VARCHAR(30) PRIMARY KEY,
+    nom_refuge VARCHAR(30) NOT NULL,
+    tel VARCHAR(12),
+    secteur_geo VARCHAR(30) NOT NULL,
+    date_ouverture DATE NOT NULL,
+    date_fermeture DATE NOT NULL CHECK (date_fermeture > date_ouverture),
+    nb_places_repas INTEGER NOT NULL,
+    nb_places_nuits INTEGER NOT NULL,
+    infos_refuge VARCHAR(30) NOT NULL,
+    type_paiement VARCHAR(30) NOT NULL CHECK (type_paiement IN ('espèce', 'chèque', 'carte-bleue')),
+    prix_nuit NUMBER
 );

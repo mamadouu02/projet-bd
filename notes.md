@@ -45,18 +45,18 @@ Exemple :
 
 ```sql
 CREATE TABLE Eleves (
-	prenom varchar(30) NOT NULL,
-	nom varchar (30) NOT NULL,
-	email varchar (30),
-	option varchar (5),
+	prenom VARCHAR(30) NOT NULL,
+	nom VARCHAR (30) NOT NULL,
+	email VARCHAR (30),
+	OPTION VARCHAR (5),
 	PRIMARY KEY (prenom, nom)
 );
 
 CREATE TABLE Notes (
-	cours varchar (30) NOT NULL,
-	prenom varchar (30) NOT NULL,
-	nom varchar (30) NOT NULL,
-	note integer,
+	cours VARCHAR (30) NOT NULL,
+	prenom VARCHAR (30) NOT NULL,
+	nom VARCHAR (30) NOT NULL,
+	note INTEGER,
 	PRIMARY KEY(cours, prenom, nom),
 	FOREIGN KEY (prenom, nom) REFERENCES Eleves(prenom, nom)
 );
