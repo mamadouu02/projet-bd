@@ -48,12 +48,13 @@ CREATE TABLE refuge (
 
 
 CREATE TABLE Lot (
-    marque VARCHAR(30) PRIMARY KEY NOT NULL,
-    modele VARCHAR(30) PRIMARY KEY NOT NULL,
-    annee_achat INTEGER NOT NULL CHECK (annee>0),
+    marque VARCHAR(30) NOT NULL,
+    modele VARCHAR(30) NOT NULL,
+    annee_achat INTEGER NOT NULL CHECK (annee_achat>0),
     nb_pieces_lot INTEGER NOT NULL CHECK (nb_pieces_lot>=0),
     prix_caution INTEGER NOT NULL CHECK (prix_caution>=0),
     activite VARCHAR(30) NOT NULL,
     infos_materiel VARCHAR(30),
-    annee_peremption INTEGER NOT NULL CHECK (annee_peremption>0)
+    annee_peremption INTEGER NOT NULL CHECK (annee_peremption>0),
+    PRIMARY KEY (marque,modele,annee_achat)
 );
