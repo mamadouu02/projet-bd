@@ -47,7 +47,7 @@ CREATE TABLE refuge (
 );
 
 
-CREATE TABLE Lot (
+CREATE TABLE lot (
     marque VARCHAR(30) NOT NULL,
     modele VARCHAR(30) NOT NULL,
     annee_achat INTEGER NOT NULL CHECK (annee_achat>0),
@@ -57,4 +57,13 @@ CREATE TABLE Lot (
     infos_materiel VARCHAR(30),
     annee_peremption INTEGER NOT NULL CHECK (annee_peremption>0),
     PRIMARY KEY (marque,modele,annee_achat)
+);
+
+CREATE TABLE quantite_materiel (
+    nb_pieces_res INTEGER NOT NULL CHECK (nb_pieces_res > 0),
+    nb_pieces_perdues INTEGER NOT NULL CHECK (nb_pieces_perdues >=0)
+);
+
+CREATE TABLE categorie (
+    categorie VARCHAR(30) NOT NULL PRIMARY KEY  
 );
