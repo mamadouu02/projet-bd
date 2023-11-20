@@ -110,3 +110,11 @@ CREATE TABLE quantite_materiel (
 CREATE TABLE categorie (
     categorie VARCHAR(30) NOT NULL PRIMARY KEY  
 );
+
+CREATE TABLE location_materiel (
+    id_res_materiel INTEGER NOT NULL PRIMARY KEY,
+    id_adh INTEGER NOT  NULL,
+    date_emprunt DATE NOT NULL,
+    date_retour DATE,
+    CHECK (date_retour-date_emprunt<14)
+);
