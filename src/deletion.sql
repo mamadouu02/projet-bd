@@ -1,0 +1,21 @@
+DROP SEQUENCE id_user_seq;
+DROP SEQUENCE id_adh_seq;
+DROP SEQUENCE id_res_materiel_seq;
+
+DROP TABLE quantite_materiel;
+DROP TABLE location_materiel;
+DROP TABLE reservation_formation;
+DROP TABLE quantite_repas;
+DROP TABLE reservation_refuge;
+DROP TABLE utilisateur;
+DROP TABLE adherent;
+DROP TABLE membre;
+DROP TABLE activites_lot;
+DROP TABLE lot;
+DROP TABLE sous_categorie;
+DROP TABLE categorie;
+DROP TABLE activites_formation;
+DROP TABLE activite;
+DROP TABLE formation;
+DROP TABLE repas;
+DROP TABLE refuge;
