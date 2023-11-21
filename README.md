@@ -50,10 +50,10 @@
 - marque, modele, annee_achat $\twoheadrightarrow$ activite
 - marque, modele, annee_achat $\nrightarrow$ infos_materiel
 - marque, modele, annee_achat $\nrightarrow$ annee_peremption
-- categorie $\not \twoheadrightarrow$ categorie
+- categorie -|->> categorie
 - id_user $\nrightarrow$ mail_user, password, nom_user, prenom, adresse
 - id_user $\nrightarrow$ id_adh
-- id_user, mail_refuge $\not \twoheadrightarrow$ type_repas
+- id_user, mail_refuge -|->> type_repas
 - id_res_materiel $\twoheadrightarrow$ marque, modele, annee_achat
 
 ### Contraintes contextuelles
@@ -71,20 +71,20 @@
 
 ## Schéma relationnel
 
-- refuge : {**mail_refuge**, nom_refuge, tel, secteur_geo, date_ouverture, date_fermeture, nb_places_repas, nb_places_nuits, infos_refuge, type_paiement, prix_nuit}
-- repas : {**mail_refuge**, **type_repas**, prix_repas}
-- formation : {**annee_formation**, **rang_formation**, nom_formation, date_formation, duree, nb_places_formation, infos_formation, prix_formation}
-- activite : {**activite**}
-- activites_formation : {**annee_formation**, **rang_formation**, **activite**}
-- categorie : {**categorie**}
-- sous_categorie : {**sous_categorie**, categorie}
-- lot : {**marque**, **modele**, **annee_achat**, categorie, nb_pieces_lot, prix_caution, activite, infos_materiel, annee_peremption}
-- activites_lot : {**marque**, **modele**, **annee_achat**, **activite**}
-- membre : {id_user, **mail_user**, password, nom_user, prenom, adresse}
-- adherent : {**id_adh**, mail_user}
-- utilisateur : {**id_user**, mail_user, id_adh}
-- reservation_refuge : {**id_user**, **mail_refuge**, type_repas, nb_repas}
-- quantite_repas : {**id_user**, **mail_refuge**, **type_repas**, nb_repas}
-- reservation_formation : {**id_adh**, **annee_formation**, **rang_formation**, rang_la}
-- location_materiel : {**id_res_materiel**, id_adh, date_emprunt, date_retour}
-- quantite_materiel : {**id_res_materiel**, **marque**, **modele**, **annee_achat**, nb_pieces_res, nb_pieces_perdues}
+- **refuge** : {<u>mail_refuge</u>, nom_refuge, tel, secteur_geo, date_ouverture, date_fermeture, nb_places_repas, nb_places_nuits, infos_refuge, type_paiement, prix_nuit}
+- **repas** : {<u>mail_refuge</u>, <u>type_repas</u>, prix_repas}
+- **formation** : {<u>annee_formation</u>, <u>rang_formation</u>, nom_formation, date_formation, duree, nb_places_formation, infos_formation, prix_formation}
+- **activite** : {<u>activite</u>}
+- **activites_formation** : {<u>annee_formation</u>, <u>rang_formation</u>, <u>activite</u>}
+- **categorie** : {<u>categorie</u>}
+- **sous_categorie** : {<u>sous_categorie</u>, categorie}
+- **lot** : {<u>marque</u>, <u>modele</u>, <u>annee_achat</u>, categorie, nb_pieces_lot, prix_caution, activite, infos_materiel, annee_peremption}
+- **activites_lot** : {<u>marque</u>, <u>modele</u>, <u>annee_achat</u>, <u>activite</u>}
+- **membre** : {id_user, <u>mail_user</u>, password, nom_user, prenom, adresse}
+- **adherent** : {<u>id_adh</u>, mail_user}
+- **utilisateur** : {<u>id_user</u>, mail_user, id_adh}
+- **reservation_refuge** : {<u>id_user</u>, <u>mail_refuge</u>, type_repas, nb_repas}
+- **quantite_repas** : {<u>id_user</u>, <u>mail_refuge</u>, <u>type_repas</u>, nb_repas}
+- **reservation_formation** : {<u>id_adh</u>, <u>annee_formation</u>, <u>rang_formation</u>, rang_la}
+- **location_materiel** : {<u>id_res_materiel</u>, id_adh, date_emprunt, date_retour}
+- **quantite_materiel** : {<u>id_res_materiel</u>, <u>marque</u>, <u>modele</u>, <u>annee_achat</u>, nb_pieces_res, nb_pieces_perdues}
