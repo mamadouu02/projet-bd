@@ -22,6 +22,7 @@ public class JDBC {
             String user = "binia";
             String passwd = "binia";
             Connection connection = DriverManager.getConnection(url, user, passwd);
+            connection.setAutoCommit(false);
             return connection;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,5 +58,36 @@ public class JDBC {
             return;
         }
         reservation.makeReservation();
+    }
+
+    public void textConnectionUser(){
+        System.out.println("Connection utilisateur:\n");
+        System.out.println("Email ?\n");
+        getCmd();
+        String email = cmd;
+        System.out.println("Password ?\n");
+        getCmd();
+        String psswrd = cmd;
+        String getPsswrd= "SELECT password FROM Membre WHERE mail_user = ? ;";
+        String getIdUser= "SELECT id_user FROM Utilisateur WHERE mail_user = ? ;";
+
+        try{
+            PreparedStatement getPsswrdSQL = connection.prepareStatement(getPsswrd);
+            getPsswrdSQL.setString(1,email);
+            ResultSet result= getPsswrdSQL.executeQuery();
+            if(psswrd != result.getString("password")){
+                System.out.println("MAUVAIS PASSWORD\n");
+                textConnectionUser();
+            }
+            else{
+                PreparedStatement getIdUserSQL = connection.prepareStatement(getIdUser);
+                getIdUserSQL.setString(1,email);
+                ResultSet resultID= getIdUserSQL.executeQuery();
+                idUser=result.getInt("ID_USER");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
