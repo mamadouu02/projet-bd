@@ -5,6 +5,7 @@
 - mail_refuge, nom_refuge, tel, secteur_geo, date_ouverture, date_fermeture, nb_places_repas, nb_places_nuits, infos_refuge, type_paiement, prix_nuit, type_repas, prix_repas
 - annee_formation, rang_formation, nom_formation, date_formation, duree, nb_places_formation, infos_formation, prix_formation, activite
 - marque, modele, annee_achat, categorie, nb_pieces_lot, prix_caution, infos_materiel, annee_peremption
+- sous_categorie
 - id_user, mail_user, password, nom_user, prenom, adresse, id_adh
 - date_res_refuge, heure, nb_nuits, nb_repas, prix_res_refuge
 - rang_la
@@ -13,10 +14,11 @@
 
 ### Dépendances fonctionelles
 
-- mail_refuge $\to$ nom_refuge, tel, secteur_geo, date_ouverture, date_fermeture, nb_places_repas, nb_places_nuits, infos_refuge, type_paiement, prix_nuit, type_repas
+- mail_refuge $\to$ nom_refuge, tel, secteur_geo, date_ouverture, date_fermeture, nb_places_repas, nb_places_nuits, infos_refuge, type_paiement, prix_nuit
 - mail_refuge, type_repas $\to$ prix_repas
 - annee_formation, rang_formation $\to$ nom_formation, date_formation, duree, nb_places_formation, infos_formation, prix_formation, activite
 - marque, modele, annee_achat $\to$ categorie, nb_pieces_lot, prix_caution, activite, infos_materiel, annee_peremption
+- sous_categorie $\to$ categorie
 - id_user $\to$ mail_user, password, nom_user, prenom, adresse, id_adh
 - id_adh $\to$ id_user
 - id_user, mail_refuge $\to$ date_res_refuge, heure, nb_nuits, type_repas
@@ -50,7 +52,8 @@
 - marque, modele, annee_achat $\twoheadrightarrow$ activite
 - marque, modele, annee_achat $\nrightarrow$ infos_materiel
 - marque, modele, annee_achat $\nrightarrow$ annee_peremption
-- categorie -|->> categorie
+- categorie -|->> sous_categorie
+- sous-categorie $\nrightarrow$ categorie
 - id_user $\nrightarrow$ mail_user, password, nom_user, prenom, adresse
 - id_user $\nrightarrow$ id_adh
 - id_user, mail_refuge -|->> type_repas
@@ -60,7 +63,7 @@
 
 - Les catégories de matériels sont organisées en un arbre avec des sous-catégories
 - Un membre peut uniquement faire des réservations dans les refuges. Seuls les adhérents peuvent s'inscrire à des formations et emprunter du matériel
-- Les membres ont la possibilité de réserver pour un seul ou plusieurs repas dans la jorunée. Ils peuvent également ne réserver que des repas sans la nuitée ou inversement
+- Les membres ont la possibilité de réserver pour un seul ou plusieurs repas dans la journée. Ils peuvent également ne réserver que des repas sans la nuitée ou inversement
 - Prise en compte de la liste d'attente pour les formations
 - Lors de la perte/casse de matériel, ceux-ci doivent être retirés des lots et la somme due par l'adhérent doit être calculée
 - Prise en compte du droit à l'oubli
