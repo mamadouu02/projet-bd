@@ -96,7 +96,6 @@ CREATE TABLE activites_lot (
 
 /* Table membre */
 CREATE TABLE membre (
-    id_user INTEGER NOT NULL,
     mail_user VARCHAR(30) PRIMARY KEY,
     password VARCHAR(30) NOT NULL,
     nom_user VARCHAR(30) NOT NULL,
@@ -104,20 +103,18 @@ CREATE TABLE membre (
     adresse VARCHAR(30) NOT NULL
 );
 
-/* Table adherent */
-CREATE TABLE adherent (
-    id_adh INTEGER DEFAULT id_adh_seq.NEXTVAL PRIMARY KEY,
-    mail_user VARCHAR(30),
-    FOREIGN KEY (mail_user) REFERENCES membre(mail_user)
-);
-
 /* Table utilisateur */
 CREATE TABLE utilisateur (
     id_user INTEGER DEFAULT id_user_seq.NEXTVAL PRIMARY KEY,
     mail_user VARCHAR(30),
-    id_adh INTEGER,
-    FOREIGN KEY (mail_user) REFERENCES membre(mail_user),
-    FOREIGN KEY (id_adh) REFERENCES adherent(id_adh)
+    FOREIGN KEY (mail_user) REFERENCES membre(mail_user)
+);
+
+/* Table adherent */
+CREATE TABLE adherent (
+    id_adh INTEGER DEFAULT id_adh_seq.NEXTVAL PRIMARY KEY,
+    id_user INTEGER NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES utilisateur(id_user)
 );
 
 /* Table reservation_refuge */

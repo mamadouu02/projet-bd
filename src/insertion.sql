@@ -28,10 +28,10 @@
 /* Table membre */
 
 
-/* Table adherent */
-
-
 /* Table utilisateur */
+
+
+/* Table adherent */
 
 
 /* Table reservation_refuge */

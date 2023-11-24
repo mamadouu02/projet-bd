@@ -83,9 +83,9 @@
 - **sous_categorie** : {<ins>sous_categorie</ins>, categorie}
 - **lot** : {<ins>marque</ins>, <ins>modele</ins>, <ins>annee_achat</ins>, categorie, nb_pieces_lot, prix_caution, activite, infos_materiel, annee_peremption}
 - **activites_lot** : {<ins>marque</ins>, <ins>modele</ins>, <ins>annee_achat</ins>, <ins>activite</ins>}
-- **membre** : {id_user, <ins>mail_user</ins>, password, nom_user, prenom, adresse}
-- **adherent** : {<ins>id_adh</ins>, mail_user}
-- **utilisateur** : {<ins>id_user</ins>, mail_user, id_adh}
+- **membre** : {<ins>mail_user</ins>, password, nom_user, prenom, adresse}
+- **utilisateur** : {<ins>id_user</ins>, mail_user}
+- **adherent** : {<ins>id_adh</ins>, id_user}
 - **reservation_refuge** : {<ins>id_user</ins>, <ins>mail_refuge</ins>, type_repas, nb_repas}
 - **quantite_repas** : {<ins>id_user</ins>, <ins>mail_refuge</ins>, <ins>type_repas</ins>, nb_repas}
 - **reservation_formation** : {<ins>id_adh</ins>, <ins>annee_formation</ins>, <ins>rang_formation</ins>, rang_la}
