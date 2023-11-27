@@ -99,7 +99,27 @@ INSERT INTO lot (marque, modele, annee_achat, categorie, nb_pieces_lot, prix_cau
     ('GearPeak', 'ChaussuresSommet', 2022, 'Chaussures', 5, 75, 'randonnée', 'Chaussures polyvalentes adaptées à diverses activités de plein air', NULL);
 
 /* Table activites_lot */
-
+INSERT INTO activites_lot (marque, modele, annee_achat, activite) VALUES
+    ('AventurePro', 'MontagneX', 2020, 'escalade'),
+    ('PleinAir', 'MaîtreDesRochers', 2021, 'escalade'),
+    ('TechniqueEscalade', 'ProHarnais', 2019, 'escalade'),
+    ('RandoSac', 'SacExplorateur', 2020, 'randonnée'),
+    ('NuitsAuCamp', 'TrailBlazer', 2021, 'randonnée'),
+    ('TechAlpine', 'MaîtreDesGlaces', 2018, 'alpinisme'),
+    ('ÉliteMontagne', 'ProCrampons', 2019, 'alpinisme'),
+    ('EscaladePro', 'ClimbChaussuresX', 2022, 'escalade'),
+    ('RandoMarcheur', 'RandoBottes', 2023, 'randonnée'),
+    ('PasExtreme', 'ChaussuresSommet', 2022, 'randonnée'),
+    ('EscaladeGear', 'AscensionX', 2020, 'escalade'),
+    ('TechSommet', 'HMSPro', 2021, 'escalade'),
+    ('SécuritéEscalade', 'CasqueSécurité', 2019, 'escalade'),
+    ('MaîtreHarnais', 'ProHarnais', 2020, 'escalade'),
+    ('ExplorateurSentier', 'TenteCamp', 2021, 'randonnée'),
+    ('EscaladeGlaceTech', 'PionnierGlace', 2018, 'alpinisme'),
+    ('TechNeige', 'CramponsNeige', 2019, 'alpinisme'),
+    ('ConfortEscalade', 'ConfortClimb', 2022, 'escalade'),
+    ('MarcheurSentier', 'RandoBottes', 2023, 'randonnée'),
+    ('GearPeak', 'ChaussuresSommet', 2022, 'randonnée');
 
 /* Table membre */
 INSERT INTO membre VALUES ('bakary@bms.com', 'joelpostbad', 'Swag', 'Bakary', 'France');
