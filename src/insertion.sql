@@ -5,6 +5,7 @@ INSERT INTO refuge VALUES ('Refuge2@gmail.com', 'Refuge2', '0703010101', 'mer', 
 INSERT INTO refuge VALUES ('Refuge3@gmail.com', 'Refuge3', '0704010101', 'montagne', DATE '2023-12-15', DATE '2024-05-15', 40, 40, NULL, 'carte-bleue', 55);
 INSERT INTO refuge VALUES ('Refuge4@gmail.com', 'Refuge4', '0705010101', 'montagne', DATE '2023-12-15', DATE '2024-05-15', 50, 50, NULL, 'carte-bleue', 60);
 
+
 /* Table repas */
 
 
