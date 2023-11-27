@@ -76,10 +76,27 @@ INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Chaussures', 'V�
 
 
 /* Table lot */
-INSERT INTO lot VALUES ('Rossignol','Extrem',2015,'Ski',20,100,'Ski','Ski de piste 175cm',null);
-INSERT INTO lot VALUES ('Rossignol','Pro',2010,'Ski',10,150,'Ski','Ski de piste 180cm',null);
-INSERT INTO lot VALUES ('Salomon','Ultra',2019,'Ski',5,300,'Ski','Ski de piste 175cm',null);
-INSERT INTO lot VALUES ('Rossignol','Extrem',2019,'Ski',20,100,'Ski','Ski de piste 185cm',null);
+INSERT INTO lot (marque, modele, annee_achat, categorie, nb_pieces_lot, prix_caution, activite, infos_materiel, annee_peremption) VALUES
+    ('AventurePro', 'MontagneX', 2020, 'Mousqueton symétrique', 5, 50, 'escalade', 'Mousqueton symétrique de haute qualité', NULL),
+    ('PleinAir', 'MaîtreDesRochers', 2021, 'Casque', 3, 30, 'escalade', 'Casque d''escalade durable avec ventilation', NULL),
+    ('TechniqueEscalade', 'ProHarnais', 2019, 'Harnais', 2, 25, 'escalade', 'Harnais d''escalade professionnel pour la sécurité', NULL),
+    ('RandoSac', 'SacExplorateur', 2020, 'Sac à dos', 10, 40, 'randonnée', 'Sac à dos spacieux pour la randonnée et le camping', NULL),
+    ('NuitsAuCamp', 'TrailBlazer', 2021, 'Tente', 1, 60, 'camping', 'Tente légère et facile à installer pour le camping', NULL),
+    ('TechAlpine', 'MaîtreDesGlaces', 2018, 'Piolets', 2, 70, 'alpinisme', 'Outils d''escalade sur glace pour l''alpinisme avancé', NULL),
+    ('ÉliteMontagne', 'ProCrampons', 2019, 'Crampons', 2, 80, 'alpinisme', 'Crampons professionnels pour des conditions glacées', NULL),
+    ('EscaladePro', 'ClimbChaussuresX', 2022, 'Chaussures d''escalade', 3, 90, 'escalade', 'Chaussures d''escalade haute performance pour la précision', NULL),
+    ('RandoMarcheur', 'RandoBottes', 2023, 'Chaussures de randonnée', 4, 55, 'randonnée', 'Bottes de randonnée durables pour tous les terrains', NULL),
+    ('PasExtreme', 'ChaussuresSommet', 2022, 'Chaussures', 5, 75, 'randonnée', 'Chaussures extérieures polyvalentes pour diverses activités', NULL),
+    ('EscaladeGear', 'AscensionX', 2020, 'Mousqueton', 6, 45, 'escalade', 'Mousqueton d''escalade léger et robuste', NULL),
+    ('TechSommet', 'HMSPro', 2021, 'Mousqueton HMS', 4, 65, 'escalade', 'Mousqueton à vis à haute mobilité pour la sécurité', NULL),
+    ('SécuritéEscalade', 'CasqueSécurité', 2019, 'Casque', 3, 30, 'escalade', 'Casque de sécurité avec sangles réglables', NULL),
+    ('MaîtreHarnais', 'ProHarnais', 2020, 'Harnais', 2, 40, 'escalade', 'Harnais d''escalade de qualité professionnelle pour le confort', NULL),
+    ('ExplorateurSentier', 'TenteCamp', 2021, 'Tente', 1, 55, 'camping', 'Tente de camping compacte pour les aventures en plein air', NULL),
+    ('EscaladeGlaceTech', 'PionnierGlace', 2018, 'Piolets', 2, 70, 'alpinisme', 'Piolets d''escalade sur glace pour des ascensions difficiles', NULL),
+    ('TechNeige', 'CramponsNeige', 2019, 'Crampons', 2, 80, 'alpinisme', 'Crampons spécifiques pour la neige pour l''alpinisme', NULL),
+    ('ConfortEscalade', 'ConfortClimb', 2022, 'Chaussures d''escalade', 3, 90, 'escalade', 'Chaussures d''escalade confortables pour des séances prolongées', NULL),
+    ('MarcheurSentier', 'RandoBottes', 2023, 'Chaussures de randonnée', 4, 55, 'randonnée', 'Bottes de randonnée durables pour des treks étendus', NULL),
+    ('GearPeak', 'ChaussuresSommet', 2022, 'Chaussures', 5, 75, 'randonnée', 'Chaussures polyvalentes adaptées à diverses activités de plein air', NULL);
 
 /* Table activites_lot */
 
