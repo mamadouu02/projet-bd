@@ -13,6 +13,13 @@ INSERT INTO refuge VALUES ('Refuge4@gmail.com', 'Refuge4', '0705010101', 'montag
 
 
 /* Table activite */
+INSERT INTO activite (activite) VALUES
+    ('randonnée'),
+    ('escalade'),
+    ('alpinisme'),
+    ('spéléologie'),
+    ('ski de rando'),
+    ('cascade de glace');
 
 
 /* Table activites_formation */
