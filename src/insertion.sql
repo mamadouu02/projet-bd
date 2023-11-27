@@ -7,7 +7,11 @@ INSERT INTO refuge VALUES ('Refuge4@gmail.com', 'Refuge4', '0705010101', 'montag
 
 
 /* Table repas */
-
+INSERT INTO repas (mail_refuge, type_repas, prix_repas) VALUES ('juliette.somier@gmail.com', 'déjeuner', 10.50);
+INSERT INTO repas (mail_refuge, type_repas, prix_repas) VALUES ('ref4@gmail.com', 'dîner', 15.75);
+INSERT INTO repas (mail_refuge, type_repas, prix_repas) VALUES ('laporte.pierre@gmail.com', 'souper', 12.00);
+INSERT INTO repas (mail_refuge, type_repas, prix_repas) VALUES ('ref4@gmail.com', 'casse-croûte', 5.25);
+INSERT INTO repas (mail_refuge, type_repas, prix_repas) VALUES ('laporte.pierre@gmail.com', 'déjeuner', 11.00);
 
 /* Table formation */
 INSERT INTO formation VALUES (2023, 1, 'Initiation à la Randonnée', '2023-05-15', 3, 20, 'Découverte des bases de la randonnée en montagne.', 150.00);
@@ -216,9 +220,38 @@ INSERT INTO adherent(id_user) VALUES (id_user_seq.CURRVAL);
 INSERT INTO utilisateur(mail_user) VALUES ('magic@lakers.com');
 
 /* Table reservation_refuge */
-
+INSERT INTO reservation_refuge (id_user, mail_refuge, date_res_refuge, heure, nb_nuits) VALUES (1, 'juliette.somier@gmail.com', DATE '2023-12-01', '18:00', 2);
+INSERT INTO reservation_refuge (id_user, mail_refuge, date_res_refuge, heure, nb_nuits) VALUES (2, 'ref4@gmail.com', DATE '2023-12-05', '20:30', 3);
+INSERT INTO reservation_refuge (id_user, mail_refuge, date_res_refuge, heure, nb_nuits) VALUES (3, 'laporte.pierre@gmail.com', DATE '2023-12-10', '16:45', 1);
+INSERT INTO reservation_refuge (id_user, mail_refuge, date_res_refuge, heure, nb_nuits) VALUES (4, 'ref4@gmail.com', DATE '2023-12-02', '21:15', 2);
+INSERT INTO reservation_refuge (id_user, mail_refuge, date_res_refuge, heure, nb_nuits) VALUES (1, 'laporte.pierre@gmail.com', DATE '2023-12-08', '19:00', 4);
+INSERT INTO reservation_refuge VALUES (1, 'juliette.somier@gmail.com', DATE '2023-12-15', '19:30', 1);
+INSERT INTO reservation_refuge VALUES (2, 'ref4@gmail.com', DATE '2023-12-20', '22:00', 2);
+INSERT INTO reservation_refuge VALUES (3, 'laporte.pierre@gmail.com', DATE '2023-12-25', '18:15', 3);
+INSERT INTO reservation_refuge VALUES (4, 'ref4@gmail.com', DATE '2023-12-18', '20:45', 1);
+INSERT INTO reservation_refuge VALUES (1, 'laporte.pierre@gmail.com', DATE '2023-12-23', '21:30', 2);
+INSERT INTO reservation_refuge VALUES (3, 'ref4@gmail.com', DATE '2023-12-30', '19:45', 3);
+INSERT INTO reservation_refuge VALUES (2, 'laporte.pierre@gmail.com', DATE '2023-12-17', '20:00', 1);
+INSERT INTO reservation_refuge VALUES (4, 'juliette.somier@gmail.com', DATE '2023-12-28', '22:15', 2);
+INSERT INTO reservation_refuge VALUES (1, 'ref4@gmail.com', DATE '2023-12-13', '18:30', 3);
+INSERT INTO reservation_refuge VALUES (5, 'laporte.pierre@gmail.com', DATE '2023-12-22', '19:00', 1);
 
 /* Table quantite_repas */
+INSERT INTO quantite_repas (id_user, mail_refuge, type_repas, nb_repas) VALUES (1, 'juliette.somier@gmail.com', 'déjeuner', 2); 
+INSERT INTO quantite_repas (id_user, mail_refuge, type_repas, nb_repas) VALUES (2, 'ref4@gmail.com', 'dîner', 1);
+INSERT INTO quantite_repas (id_user, mail_refuge, type_repas, nb_repas) VALUES (3, 'laporte.pierre@gmail.com', 'souper', 3);
+INSERT INTO quantite_repas (id_user, mail_refuge, type_repas, nb_repas) VALUES (4, 'ref4@gmail.com', 'casse-croûte', 4);
+INSERT INTO quantite_repas (id_user, mail_refuge, type_repas, nb_repas) VALUES (1, 'laporte.pierre@gmail.com', 'déjeuner', 1);
+INSERT INTO quantite_repas VALUES (3, 'ref4@gmail.com', 'souper', 2);
+INSERT INTO quantite_repas VALUES (2, 'laporte.pierre@gmail.com', 'casse-croûte', 1);
+INSERT INTO quantite_repas VALUES (4, 'juliette.somier@gmail.com', 'déjeuner', 3);
+INSERT INTO quantite_repas VALUES (1, 'ref4@gmail.com', 'dîner', 2);
+INSERT INTO quantite_repas VALUES (3, 'laporte.pierre@gmail.com', 'souper', 1);
+INSERT INTO quantite_repas VALUES (2, 'ref4@gmail.com', 'casse-croûte', 2);
+INSERT INTO quantite_repas VALUES (4, 'juliette.somier@gmail.com', 'déjeuner', 1);
+INSERT INTO quantite_repas VALUES (1, 'laporte.pierre@gmail.com', 'dîner', 4);
+INSERT INTO quantite_repas VALUES (3, 'ref4@gmail.com', 'casse-croûte', 3);
+INSERT INTO quantite_repas VALUES (5, 'laporte.pierre@gmail.com', 'déjeuner', 2);
 
 
 /* Table reservation_formation */
