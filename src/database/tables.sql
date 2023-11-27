@@ -14,7 +14,7 @@ CREATE TABLE refuge (
     date_fermeture DATE NOT NULL,
     nb_places_repas INTEGER NOT NULL CHECK (nb_places_repas > 0),
     nb_places_nuits INTEGER NOT NULL CHECK (nb_places_nuits > 0),
-    infos_refuge VARCHAR(30) NOT NULL,
+    infos_refuge VARCHAR(100) NOT NULL,
     type_paiement VARCHAR(30) NOT NULL CHECK (type_paiement IN ('espèce', 'chèque', 'carte-bleue')),
     prix_nuit NUMBER NOT NULL CHECK (prix_nuit > 0),
     CHECK (date_fermeture > date_ouverture)
@@ -33,11 +33,11 @@ CREATE TABLE repas (
 CREATE TABLE formation (
     annee_formation INTEGER CHECK (annee_formation > 0),
     rang_formation INTEGER CHECK (rang_formation > 0),
-    nom_formation VARCHAR(30) NOT NULL,
+    nom_formation VARCHAR(64) NOT NULL,
     date_formation DATE NOT NULL,
     duree INTEGER NOT NULL CHECK (duree > 0),
     nb_places_formation INTEGER NOT NULL CHECK (nb_places_formation > 0),
-    infos_formation VARCHAR(30) NOT NULL,
+    infos_formation VARCHAR(100) NOT NULL,
     prix_formation NUMBER NOT NULL CHECK (prix_formation > 0),
     PRIMARY KEY (annee_formation, rang_formation)
 );
@@ -77,7 +77,7 @@ CREATE TABLE lot (
     nb_pieces_lot INTEGER NOT NULL CHECK (nb_pieces_lot > 0),
     prix_caution INTEGER NOT NULL CHECK (prix_caution > 0),
     activite VARCHAR(30) NOT NULL,
-    infos_materiel VARCHAR(30),
+    infos_materiel VARCHAR(100),
     annee_peremption INTEGER,
     CHECK (annee_peremption > annee_achat),
     PRIMARY KEY (marque, modele, annee_achat)
@@ -121,8 +121,8 @@ CREATE TABLE adherent (
 CREATE TABLE reservation_refuge (
     id_user INTEGER NOT NULL,
     mail_refuge VARCHAR(30) NOT NULL,
-    date_res_refuge DATE DEFAULT CURRENT_DATE,
-    heure VARCHAR(5) DEFAULT TO_CHAR(SYSDATE, 'HH24:MI'),
+    date_res_refuge DATE DEFAULT CURRENT_DATE NOT NULL,
+    heure VARCHAR(5) DEFAULT TO_CHAR(SYSDATE, 'HH24:MI') NOT NULL,
     nb_nuits INTEGER NOT NULL,
     PRIMARY KEY (id_user, mail_refuge),
     FOREIGN KEY (id_user) REFERENCES utilisateur(id_user),
@@ -169,7 +169,7 @@ CREATE TABLE quantite_materiel (
     modele VARCHAR(30) NOT NULL,
     annee_achat INTEGER NOT NULL,
     nb_pieces_res INTEGER NOT NULL CHECK (nb_pieces_res > 0),
-    nb_pieces_perdues INTEGER NOT NULL,
+    nb_pieces_perdues INTEGER DEFAULT 0 NOT NULL,
     CHECK (nb_pieces_perdues <= nb_pieces_res),
     PRIMARY KEY (id_res_materiel, marque, modele, annee_achat),
     FOREIGN KEY (id_res_materiel) REFERENCES location_materiel(id_res_materiel),

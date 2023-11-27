@@ -33,7 +33,7 @@ public class JDBC {
 
     public void textReservMat() {
         System.out.println("Reservation Materiel :\n");
-        reservationMat reservation = new reservationMat(this.connection);
+        ReservationMat reservation = new ReservationMat(this.connection);
         System.out.println("Tapez exit pour revenir au menu\n");
         System.out.println("Marque ?\n");
         getCmd();
