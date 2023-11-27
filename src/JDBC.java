@@ -102,4 +102,74 @@ public class JDBC {
             textConnectionUser();
         }
     }
+
+
+    public void parcoursFormations() {
+        try {
+            String getFormation = "SELECT nom_formation, activite, date_formation, duree, nb_places_formation " +
+                    "FROM formation " +
+                    "JOIN activites_formation " +
+                    "ON formation.annee_formation = activites_formation.annee_formation " +
+                    "AND formation.rang_formation = activites_formation.rang_formation " +
+                    "GROUP BY date_formation ASC ORDER BY nom_formation ASC ;";
+            
+            PreparedStatement getFormationSQL = connection.prepareStatement(getFormation);
+            ResultSet result = getFormationSQL.executeQuery();
+            
+            while (result.next()) {
+                System.out.println("Nom de Formation : " + result.getString(1) + 
+                        "Activite : " + result.getString(2) + 
+                        "Date de Formation : " + result.getString(3) + 
+                        "Duree :" + result.getString(4) + 
+                        "Nombre de places de formation :" + result.getString(5));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void parcoursMateriels() {
+        String getMateriel = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot - SUM(qm.nb_pieces_perdues) - SUM(qm.nb_pieces_res) AS nb_pieces_disponibles " +
+                "FROM lot l " +
+                "JOIN activites_lot al ON l.marque = al.marque AND l.modele = al.modele AND l.annee_achat = al.annee_achat " +
+                "JOIN quantite_materiel qm ON al.marque = qm.marque AND al.modele = qm.modele AND al.annee_achat = qm.annee_achat " +
+                "JOIN activite a ON al.activite = a.activite " +
+                "GROUP BY l.activite;";
+
+        PreparedStatement getMateriel = connection.prepareStatement(getMateriel);
+        ResultSet result = getMateriel.executeQuery();
+
+        while (result.next()) {
+            System.out.println("Marque : " + result.getString(1) +
+                    "Modèle : " + result.getString(2) +
+                    "Nombre de pièces total : " + result.getString(3) +
+                    "Nombre de pièces disponibles :" + result.getString(4);
+        }
+
+
+
+        String afficheMaterielCategorie = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot - SUM(qm.nb_pieces_perdues) - SUM(qm.nb_pieces_res) AS nb_pieces_disponibles " +
+                "FROM lot l " +
+                "JOIN activites_lot al ON l.marque = al.marque AND l.modele = al.modele AND l.annee_achat = al.annee_achat " +
+                "JOIN quantite_materiel qm ON al.marque = qm.marque AND al.modele = qm.modele AND al.annee_achat = qm.annee_achat " +
+                "JOIN activite a ON al.activite = a.activite " +
+                "GROUP BY l.categorie;";
+
+        PreparedStatement getMaterielCategorie = connection.prepareStatement(getMaterielCategorie);
+        ResultSet result = getMaterielCategorie.executeQuery();
+
+        while (result.next()) {
+            System.out.println("Marque : " + result.getString(1) +
+                    "Modèle : " + result.getString(2) +
+                    "Nombre de pièces total : " + result.getString(3) +
+                    "Nombre de pièces disponibles :" + result.getString(4);
+        }
+    }
+
+    public void parcoursRefuges() {
+        String afficheRefuge = "SELECT r.nom_refuge, r.secteur_geo, r.nb_places_repas, (r.nb_places_nuits-COUNT(SELECT * FROM refuge WHERE date_res_refuge < CURRENT_DATE))" +
+        "FROM refuge r" +
+        "ORDER BY (r.nb_places_nuits-COUNT(SELECT * FROM refuge WHERE date_res_refuge < CURRENT_DATE)) ASC, r.nom_refuge ASC";
+    }
 }
