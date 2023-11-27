@@ -35,9 +35,33 @@ INSERT INTO activite (activite) VALUES
 
 
 /* Table categorie */
+INSERT INTO categorie (categorie) VALUES ('EPI');
+INSERT INTO categorie (categorie) VALUES ('Escalade');
+INSERT INTO categorie (categorie) VALUES ('Randonnée');
+INSERT INTO categorie (categorie) VALUES ('Camping');
+INSERT INTO categorie (categorie) VALUES ('Alpinisme');
+INSERT INTO categorie (categorie) VALUES ('Accessoires');
+INSERT INTO categorie (categorie) VALUES ('Vêtements');
 
 
 /* Table sous_categorie */
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Mousqueton', 'EPI');
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Mousqueton symétrique', 'Mousqueton');
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Mousqueton HMS', 'Mousqueton');
+
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Casque', 'Escalade');
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Harnais', 'Escalade');
+
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Sac à dos', 'Randonnée');
+
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Tente', 'Camping');
+
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Piolets', 'Alpinisme');
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Crampons', 'Alpinisme');
+
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Chaussures d''escalade', 'Chaussures');
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Chaussures de randonnée', 'Chaussures');
+INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Chaussures', 'Vêtements');
 
 
 /* Table lot */
