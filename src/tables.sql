@@ -73,7 +73,7 @@ CREATE TABLE lot (
     marque VARCHAR(30) NOT NULL,
     modele VARCHAR(30) NOT NULL,
     annee_achat INTEGER NOT NULL CHECK (annee_achat > 1970),
-    categorie VARCHAR(30) NOT NULL REFERENCES categorie(categorie),
+    sous_categorie VARCHAR(30) NOT NULL REFERENCES sous_categorie(sous_categorie),
     nb_pieces_lot INTEGER NOT NULL CHECK (nb_pieces_lot > 0),
     prix_caution INTEGER NOT NULL CHECK (prix_caution > 0),
     activite VARCHAR(30) NOT NULL,
