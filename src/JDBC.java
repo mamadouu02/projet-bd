@@ -94,9 +94,28 @@ public class JDBC {
     }
 
     public void parcoursFormations() {
-        String afficheFormation = "SELECT nom_formation, activite, date_formation, duree, nb_places_formation FROM formation JOIN activites_formation ON formation.annee_formation = activites_formation.annee_formation AND formation.rang_formation = activites_formation.rang_formation GROUP BY date_formation ASC ORDER BY nom_formation ASC ;";
-        ResultSet result = afficheFormation.executeQuery();
-
+        try {
+            String getFormation = "SELECT nom_formation, activite, date_formation, duree, nb_places_formation " +
+                    "FROM formation " +
+                    "JOIN activites_formation " +
+                    "ON formation.annee_formation = activites_formation.annee_formation " +
+                    "AND formation.rang_formation = activites_formation.rang_formation " +
+                    "GROUP BY date_formation ASC ORDER BY nom_formation ASC ;";
+            
+            PreparedStatement getFormationSQL = connection.prepareStatement(getFormation);
+            ResultSet result = getFormationSQL.executeQuery();
+            
+            while (result.next()) {
+                System.out.println("Nom de Formation : " + result.getString(1) + 
+                        "Activite : " + result.getString(2) + 
+                        "Date de Formation : " + result.getString(3) + 
+                        "Duree :" + result.getString(4) + 
+                        "Nombre de places de formation :" + result.getString(5));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void parcoursMateriels() {
