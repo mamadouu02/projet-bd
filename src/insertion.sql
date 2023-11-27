@@ -32,7 +32,18 @@ INSERT INTO activite (activite) VALUES
 
 
 /* Table activites_formation */
-
+INSERT INTO activites_formation VALUES (2023, 1, 'randonnée');
+INSERT INTO activites_formation VALUES (2023, 2, 'escalade');
+INSERT INTO activites_formation VALUES (2023, 3, 'alpinisme');
+INSERT INTO activites_formation VALUES (2023, 4, 'spéléologie');
+INSERT INTO activites_formation VALUES (2023, 5, 'ski de rando');
+INSERT INTO activites_formation VALUES (2023, 6, 'cascade de glace');
+INSERT INTO activites_formation VALUES (2024, 1, 'randonnée');
+INSERT INTO activites_formation VALUES (2024, 2, 'escalade');
+INSERT INTO activites_formation VALUES (2024, 2, 'alpinisme');
+INSERT INTO activites_formation VALUES (2024, 3, 'spéléologie');
+INSERT INTO activites_formation VALUES (2024, 3, 'escalade');
+INSERT INTO activites_formation VALUES (2024, 4, 'randonnée');
 
 /* Table categorie */
 INSERT INTO categorie (categorie) VALUES ('EPI');
