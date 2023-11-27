@@ -45,7 +45,7 @@ INSERT INTO membre VALUES ('kobebryant@mamba.com', 'blackmamba8', 'Bryant', 'Kob
 INSERT INTO membre VALUES ('sachin@cricket.com', 'masterblaster', 'Tendulkar', 'Sachin', 'India');
 INSERT INTO membre VALUES ('tombrady@goat.com', 'superbowl6', 'Brady', 'Tom', 'Tampa Bay');
 INSERT INTO membre VALUES ('venus@tennis.com', 'backhandqueen', 'Williams', 'Venus', 'California');
-INSERT INTO membre VALUES ('ronaldo@brazil.com', 'r9phenomenon', 'Ronaldo', 'Ronaldo', 'Brazil');
+INSERT INTO membre VALUES ('ronaldo@brazil.com', 'r9phenomeno', 'Ronaldo', 'Ronaldo', 'Brazil');
 INSERT INTO membre VALUES ('maradona@legend.com', 'handofgod', 'Maradona', 'Diego', 'Argentina');
 INSERT INTO membre VALUES ('ali@boxing.com', 'thegreatest', 'Ali', 'Muhammad', 'Kentucky');
 INSERT INTO membre VALUES ('schumacher@f1.com', 'f1champ', 'Schumacher', 'Michael', 'Germany');
