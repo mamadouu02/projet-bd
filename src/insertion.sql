@@ -10,7 +10,16 @@ INSERT INTO refuge VALUES ('Refuge4@gmail.com', 'Refuge4', '0705010101', 'montag
 
 
 /* Table formation */
-
+INSERT INTO formation VALUES (2023, 1, 'Initiation à la Randonnée', '2023-05-15', 3, 20, 'Découverte des bases de la randonnée en montagne.', 150.00);
+INSERT INTO formation VALUES (2023, 2, 'Escalade pour Débutants', '2023-06-01', 5, 15, 'Introduction à l''escalade en sécurité.', 200.00);
+INSERT INTO formation VALUES (2023, 3, 'Alpinisme Avancé', '2023-07-10', 7, 5, 'Formation approfondie en alpinisme.', 300.00);
+INSERT INTO formation VALUES (2023, 4, 'Spéléologie Exploratoire', '2023-08-20', 4, 12, 'Exploration des grottes et cavernes.', 180.00);
+INSERT INTO formation VALUES (2023, 5, 'Ski de Randonnée', '2023-12-05', 2, 18, 'Pratique du ski en montagne avec des montées en peau de phoque.', 120.00);
+INSERT INTO formation VALUES (2023, 6, 'Cascade de Glace', '2023-12-20', 3, 15, 'Apprentissage de l''escalade de glace.', 250.00);
+INSERT INTO formation VALUES (2024, 1, 'Randonnée et Survie en Montagne', '2024-06-01', 5, 25, 'Techniques de survie en milieu montagnard.', 180.00);
+INSERT INTO formation VALUES (2024, 2, 'Escalade de Montagne', '2024-07-15', 6, 20, 'Escalade en haute montagne.', 280.00);
+INSERT INTO formation VALUES (2024, 3, 'Formation Combinée Spéléologie et Escalade', '2024-08-10', 7, 15, 'Combinaison de l''escalade et de la spéléologie.', 320.00);
+INSERT INTO formation VALUES (2024, 4, 'Ski de Randonnée Avancé', '2024-12-01', 4, 15, 'Pratique avancée du ski de randonnée en haute montagne.', 200.00);
 
 /* Table activite */
 INSERT INTO activite (activite) VALUES
