@@ -76,7 +76,10 @@ INSERT INTO sous_categorie (sous_categorie, categorie) VALUES ('Chaussures', 'VÃ
 
 
 /* Table lot */
-
+INSERT INTO lot VALUES ('Rossignol','Extrem',2015,'Ski',20,100,'Ski','Ski de piste 175cm',null);
+INSERT INTO lot VALUES ('Rossignol','Pro',2010,'Ski',10,150,'Ski','Ski de piste 180cm',null);
+INSERT INTO lot VALUES ('Salomon','Ultra',2019,'Ski',5,300,'Ski','Ski de piste 175cm',null);
+INSERT INTO lot VALUES ('Rossignol','Extrem',2019,'Ski',20,100,'Ski','Ski de piste 185cm',null);
 
 /* Table activites_lot */
 
