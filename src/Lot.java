@@ -1,14 +1,26 @@
 public class Lot {
-    String marque;
-    String modele;
-    int anneAchat;
 
-    int qttDispo;
+    private String marque;
+    private String modele;
+    private int anneeAchat;
+    private int qteDispo;
 
-    public Lot(String marque,String modele,int anneAchat,int qttDispo){
-        this.marque=marque;
-        this.modele=modele;
-        this.anneAchat=anneAchat;
-        this.qttDispo=qttDispo;
+    public Lot(String marque, String modele, int anneeAchat, int qteDispo) {
+        this.marque = marque;
+        this.modele = modele;
+        this.anneeAchat = anneeAchat;
+        this.qteDispo = qteDispo;
+    }
+
+    public String getMarque() {
+        return marque;
+    }
+
+    public String getModele() {
+        return modele;
+    }
+
+    public int getAnneeAchat() {
+        return anneeAchat;
     }
 }
