@@ -177,6 +177,7 @@ public class Interface {
                     }
             } else if (cmd.equals("4")) {
                 supprimerDonneesPersonnelles();
+                return;
             } else if (cmd.equals("5")) {
                 System.out.println("Bye");
                 try{
@@ -187,7 +188,7 @@ public class Interface {
                 }
                 return;
             } else {
-                System.out.println("Veuillez entrer un chiffre correspondant à un choix correct");
+                System.out.println("\nVeuillez entrer un choix correct : 1, 2, 3, 4, 5");
             }
         }
     }
@@ -248,7 +249,7 @@ public class Interface {
             String cmd = getCmd();
 
             if (cmd.equals("1")){
-                String getMaterielCategorie = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot - SUM(qm.nb_pieces_perdues) - SUM(qm.nb_pieces_res) AS nb_pieces_disponibles, l.sous_categorie " +
+                String getMaterielCategorie = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot - (SELECT SUM(nb_pieces_perdues) FROM quantite_materiel) - (SELECT SUM(nb_pieces_res) FROM quantite_materiel), l.sous_categorie " +
                         "FROM lot l " +
                         "JOIN activites_lot al ON l.marque = al.marque AND l.modele = al.modele AND l.annee_achat = al.annee_achat " +
                         "JOIN quantite_materiel qm ON al.marque = qm.marque AND al.modele = qm.modele AND al.annee_achat = qm.annee_achat " +
@@ -258,24 +259,36 @@ public class Interface {
                 PreparedStatement getMaterielCategorieSQL = conn.prepareStatement(getMaterielCategorie);
                 ResultSet result = getMaterielCategorieSQL.executeQuery();
 
-                int i = 1;
+                int i = 0;
                 boolean bool = true;
+                boolean debut = false;
                 while (result.next()) {
                     String cat = result.getString(5);
-                    System.out.println("Catégorie n°" + i + " : " + cat);
-                    while (bool && result.getString(5) == cat) {
+                    if (!debut) {
+                        i++;
+                        System.out.println("Catégorie n°" + i + " : " + cat);
+                    }
+                    while (bool && result.getString(5).equals(cat)) {
                         System.out.println("\t Marque : " + result.getString(1) + "\n" +
                                 "\t Modèle : " + result.getString(2) + "\n" +
                                 "\t Nombre de pièces total : " + result.getString(3) + "\n" +
                                 "\t Nombre de pièces disponibles :" + result.getString(4) + "\n");
                         bool = result.next();
                     }
-                    i++;
-                    System.out.println("\n");
+                    if (bool && !result.getString(5).equals(cat)) {
+                        i++;
+                        cat = result.getString(5);
+                        System.out.println("Catégorie n°" + i + " : " + cat);
+                        System.out.println("\t Marque : " + result.getString(1) + "\n" +
+                                "\t Modèle : " + result.getString(2) + "\n" +
+                                "\t Nombre de pièces total : " + result.getString(3) + "\n" +
+                                "\t Nombre de pièces disponibles :" + result.getString(4) + "\n");
+                    }
+                    debut = bool && !result.getString(5).equals(cat);
                 }
                 result.close();
             } else if (cmd.equals("2")) {
-                String getMaterielActivite = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot - SUM(qm.nb_pieces_perdues) - SUM(qm.nb_pieces_res) AS nb_pieces_disponibles, l.activite " +
+                String getMaterielActivite = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot - (SELECT SUM(nb_pieces_perdues) FROM quantite_materiel) - (SELECT SUM(nb_pieces_res) FROM quantite_materiel), l.activite " +
                         "FROM lot l " +
                         "JOIN activites_lot al ON l.marque = al.marque AND l.modele = al.modele AND l.annee_achat = al.annee_achat " +
                         "JOIN quantite_materiel qm ON al.marque = qm.marque AND al.modele = qm.modele AND al.annee_achat = qm.annee_achat " +
@@ -285,20 +298,32 @@ public class Interface {
                 PreparedStatement getMaterielActiviteSQL = conn.prepareStatement(getMaterielActivite);
                 ResultSet result = getMaterielActiviteSQL.executeQuery();
 
-                int i = 1;
+                int i = 0;
                 boolean bool = true;
+                boolean debut = false;
                 while (result.next()) {
                     String act = result.getString(5);
-                    System.out.println("Activité n°" + i + " : " + act);
-                    while (bool && result.getString(5) == act) {
+                    if (!debut) {
+                        i++;
+                        System.out.println("Activité n°" + i + " : " + act);
+                    }
+                    while (bool && result.getString(5).equals(act)) {
                         System.out.println("\t Marque : " + result.getString(1) + "\n" +
                                 "\t Modèle : " + result.getString(2) + "\n" +
                                 "\t Nombre de pièces total : " + result.getString(3) + "\n" +
                                 "\t Nombre de pièces disponibles :" + result.getString(4) + "\n");
                         bool = result.next();
                     }
-                    i++;
-                    System.out.println("\n");
+                    if (bool && !result.getString(5).equals(act)) {
+                        i++;
+                        act = result.getString(5);
+                        System.out.println("Activité n°" + i + " : " + act);
+                        System.out.println("\t Marque : " + result.getString(1) + "\n" +
+                                "\t Modèle : " + result.getString(2) + "\n" +
+                                "\t Nombre de pièces total : " + result.getString(3) + "\n" +
+                                "\t Nombre de pièces disponibles :" + result.getString(4) + "\n");
+                    }
+                    debut = bool && !result.getString(5).equals(act);
                 }
                 result.close();
             } else {
@@ -429,7 +454,7 @@ public class Interface {
         }
         ///////////////
 
-        ReservationMateriel resMateriel = new ReservationMateriel(this.conn);
+        ReservationMateriel resMateriel = new ReservationMateriel(this.conn,this.user.getIdAdh());
 
         System.out.println("Tapez exit pour revenir au menu\n");
 
@@ -654,7 +679,6 @@ public class Interface {
                     System.out.println("Oups !!! Ça nous fait vraiment de la peine de vous partir !! ");
                     conn.commit();
                     conn.close();
-                    return;
                 } else if (choice.equals("2")) {
                     menu();
                 }

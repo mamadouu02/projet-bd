@@ -12,13 +12,13 @@ public class ReservationMateriel {
     private int idAdh;
 
     private String getLot = "SELECT nb_pieces_lot FROM Lot WHERE marque = ? AND modele = ? AND annee_achat = ?";
-    private String updateLot = "UPDATE lot SET nb_pieces_lot =  nb_pieces_lot - ? WHERE marque = ?, modele = ?, annee_achat = ?";
+    private String updateLot = "UPDATE lot SET nb_pieces_lot = nb_pieces_lot - ?   WHERE marque = ? AND modele = ? AND annee_achat = ?";
     private String addReserv = "INSERT INTO location_materiel (id_adh, date_emprunt, date_retour) VALUES (?, ?, ?)";
     private String getAdh = "SELECT * FROM adherent WHERE id_user = ?";
-    private String addQte = "INSERT INTO quantite_materiel VALUES (?, ?, ?)";
+    private String addQte = "INSERT INTO quantite_materiel VALUES (?, ?, ?, ?, ?, ?)";
     private String getDatePeremption = "SELECT annee_peremption FROM lot WHERE marque = ? AND modele = ? AND annee_achat = ?";
 
-    public ReservationMateriel(Connection conn) {
+    public ReservationMateriel(Connection conn,int idAdh) {
         this.connection = conn;
         this.listLotReserve = new HashMap<>();
     }
@@ -76,16 +76,6 @@ public class ReservationMateriel {
 
     }
 
-    public void putAdherent() {
-        try {
-            PreparedStatement getAdhSQL = connection.prepareStatement(getAdh);
-            ResultSet result = getAdhSQL.executeQuery();
-            idAdh = result.getInt("id_adh");
-        } catch (SQLException e) {
-            System.out.println("ERREUR : VOUS DEVEZ ETRE ADHERENT POUR RESERVER DU MATERIEL");
-            e.printStackTrace();
-        }
-    }
 
     private boolean testQttDispo(Lot lot, int qtt){
         try {
@@ -113,12 +103,26 @@ public class ReservationMateriel {
     }
 
     public void makeReservation() {
-        this.putAdherent();
-
         try {
             PreparedStatement updateLotSQL = connection.prepareStatement(updateLot);
             PreparedStatement addQteSQL = connection.prepareStatement(addQte);
-            PreparedStatement addReservSQL = connection.prepareStatement(addReserv);
+            PreparedStatement addReservSQL = connection.prepareStatement(addReserv, Statement.RETURN_GENERATED_KEYS);
+            //Creation Reservation
+
+            addReservSQL.setInt(1,this.idAdh);
+            long millis=System.currentTimeMillis();
+            java.sql.Date date=new java.sql.Date(millis);
+            addReservSQL.setDate(2,date);
+            addReservSQL.setDate(3,this.dateRetour);
+
+            //Retour num reservation
+            addReservSQL.executeUpdate();
+
+            ResultSet key = addReservSQL.getGeneratedKeys();
+            int numRez=-1;
+            if(key.next()) {
+                numRez = key.getInt(1);
+            }
 
             for (Lot lot : listLotReserve.keySet()) {
                 // quantite a reserver demander
@@ -133,7 +137,7 @@ public class ReservationMateriel {
                 result.next();
 
                 int qtedispo = result.getInt("nb_pieces_lot");
-                
+
                 if (qtedispo < qte) {
                     System.out.println("Pas assez de materiel dispo dans le lot");
                     // abort
@@ -151,20 +155,14 @@ public class ReservationMateriel {
                 updateLotSQL.executeUpdate();
 
                 // Creation Quantite
-                addQteSQL.setInt(1, qte);
-                addQteSQL.setInt(2, 0);
+                addQteSQL.setInt(1,numRez);
+                addQteSQL.setString(2, lot.getMarque());
+                addQteSQL.setString(3, lot.getModele());
+                addQteSQL.setInt(4, lot.getAnneeAchat());
+                addQteSQL.setInt(5, qte);
+                addQteSQL.setInt(6, 0);
                 addQteSQL.executeUpdate();
             }
-            //Creation Reservation
-            addReservSQL.setInt(1,this.idAdh);
-            long millis=System.currentTimeMillis();
-            java.sql.Date date=new java.sql.Date(millis);
-            addReservSQL.setDate(2,date);
-            addReservSQL.setDate(3,this.dateRetour);
-
-            //Retour num reservation
-            ResultSet key = addReservSQL.getGeneratedKeys();
-            key.next();
             System.out.println("Votre numéro de reservation de materiel est : "+ key.getInt(1) +" \n");
 
 

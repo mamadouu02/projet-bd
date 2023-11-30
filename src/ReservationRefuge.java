@@ -11,7 +11,7 @@ public class ReservationRefuge{
     private String UpdateNbPlaceNuits = "UPDATE Refuge SET nb_places_nuits =  nb_places_nuits - 1 WHERE nom_refuge = ?";
     private String CompteNombre = "SELECT date FROM reservation_refuge WHERE date_res_refuge == ?) ";
 
-    public int testReservationRefuge(Connection conn,String nom_refuge,Date res, Boolean manger, Boolean dormir,int  nb_nuit  ) {
+    public int testReservationRefuge(Connection conn,String nom_refuge,Timestamp res, Boolean manger, Boolean dormir,int  nb_nuit  ) {
         // return 0 si tout se passe bien
         // return 1 si il y a eu une date non conforme à l'intervalle
         // return 2 si le nombre de place pour les repas est à 0
@@ -35,7 +35,7 @@ public class ReservationRefuge{
             }
             stmt = conn.prepareStatement
                     ("SELECT  date_res_refuge - DATE ?,nb_nuits FROM reservation_refuge");
-            stmt.setDate(1,res);
+            stmt.setTimestamp(1,res);
             rset = stmt.executeQuery();
 
             int[] tabDateRes = new int[nb_nuit];
@@ -84,7 +84,7 @@ public class ReservationRefuge{
         }
     }
 
-    public void insertReserveRefuge(Connection conn,int userid,String mail,Date date,int nb_nuit){
+    public void insertReserveRefuge(Connection conn,int userid,String mail,Timestamp date,int nb_nuit){
         try {
 
 
@@ -92,7 +92,7 @@ public class ReservationRefuge{
                     ("Insert Into RESERVATION_REFUGE(?,?,?,?,?)");
             stmt.setInt(1, userid);
             stmt.setString(2, mail);
-            stmt.setDate(3, date);
+            stmt.setTimestamp(3, date);
             stmt.setInt(5, nb_nuit);
             int rset = stmt.executeUpdate();
             System.out.println("Reservation effectué, il ne vous reste plus qu'à payer");
