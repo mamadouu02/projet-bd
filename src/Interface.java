@@ -16,7 +16,7 @@ public class Interface {
 
     private String getCmd() {
         System.out.print("> ");
-        return sc.next();
+        return sc.nextLine();
     }
 
     private int getInt() {
@@ -26,13 +26,14 @@ public class Interface {
 
     private Date getDate(){
         System.out.print("> ");
-        Date date = Date.valueOf(sc.next()); //converting string into sql date
+        Date date = Date.valueOf(sc.nextLine()); //converting string into sql date
         return date;
     }
 
     private Timestamp getTime(){
         System.out.print("> ");
-        Timestamp date = Timestamp.valueOf(sc.next()); //converting string into sql date
+        String test = sc.nextLine();
+        Timestamp date = Timestamp.valueOf(test); //converting string into sql date
         return date;
     }
     public void connexionUser() {

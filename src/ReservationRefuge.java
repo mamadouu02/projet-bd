@@ -19,11 +19,12 @@ public class ReservationRefuge{
         // return 4 si le nom est mauvais
         try {
             PreparedStatement stmt = conn.prepareStatement
-                    ("select date_ouverture, date_fermeture from Refuge where nom = ? ");
+                    ("select date_ouverture, date_fermeture,mail_refuge from Refuge where nom_refuge = ? ");
             stmt.setString(1, nom_refuge);
             ResultSet rset = stmt.executeQuery();
-
+            String mail_refuge = "ffff";
             if (rset.next()) {
+                 mail_refuge  = rset.getString("mail_refuge");
                 if ( res.compareTo(rset.getDate("date_ouverture"))<0) {
                     System.out.println("Date fourni < date d'ouverture du refuge");
                     return 1;
@@ -33,15 +34,16 @@ public class ReservationRefuge{
                     return 1;
                 }
             }
-            stmt = conn.prepareStatement
-                    ("SELECT  date_res_refuge - DATE ?,nb_nuits FROM reservation_refuge");
-            stmt.setTimestamp(1,res);
-            rset = stmt.executeQuery();
+            PreparedStatement stmt2 = conn.prepareStatement
+                    ("SELECT date_res_refuge - TIMESTAMP ?,nb_nuits from reservation_refuge where mail_refuge = ?");
+            stmt2.setTimestamp(1,res);
+            stmt2.setString(2,mail_refuge);
+            ResultSet rset2 = stmt2.executeQuery();
 
             int[] tabDateRes = new int[nb_nuit];
-            while(rset.next()){
-                int diffdate = rset.getInt(1);
-                int nbNUit = rset.getInt(2);
+            while(rset2.next()){
+                int diffdate = rset2.getInt(1);
+                int nbNUit = rset2.getInt(2);
                 if ((diffdate<0) && (diffdate +nbNUit >0) ){
                     int fin = (diffdate+nbNUit+1<nb_nuit)?diffdate+nbNUit+1:nb_nuit;
                     for (int i=0;i<fin ;i++){
