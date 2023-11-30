@@ -3,12 +3,12 @@ import java.util.Scanner;
 
 public class Interface {
 
-    private Connection connection;
+    private Connection conn;
     private Scanner sc;
-    private int idUser;
+    private User user;
 
     public Interface() {
-        this.connection = JDBC.getConnection();
+        this.conn = JDBC.getConnection();
         this.sc = new Scanner(System.in);
     }
 
@@ -22,20 +22,98 @@ public class Interface {
         return sc.nextInt();
     }
 
-    public void run() {
-        // Connexion utilisateur
-        textConnectionUser();
+    public void connexionUser() {
+        try {
+            System.out.println("\n===== Connexion =====\n");
 
-        System.out.println("Pour faire une reservation, tapez : reservation");
+            System.out.println("Email :");
+            String email = getCmd();
+            
+            String getMail = "SELECT mail_user FROM membre WHERE mail_user = ?";
+            PreparedStatement getMailSQL = conn.prepareStatement(getMail);
+            getMailSQL.setString(1, email);
+            ResultSet result = getMailSQL.executeQuery();
 
+            if (!result.next()) {
+                result.close();
+                System.out.println("\nL'identifiant est incorrect.");
+                connexionUser();
+            }
+
+            System.out.println("\nPassword :");
+            String psswrd = getCmd();
+            
+            String getPsswrd = "SELECT password, nom_user, prenom FROM membre WHERE mail_user = ?";
+            String getIdUser = "SELECT id_user FROM utilisateur WHERE mail_user = ?";
+            String getIdAdh = "SELECT id_adh FROM adherent WHERE id_user = ?";
+
+            PreparedStatement getPsswrdSQL = conn.prepareStatement(getPsswrd);
+            getPsswrdSQL.setString(1, email);
+            result = getPsswrdSQL.executeQuery();
+            result.next();
+
+            String str = result.getString("password");
+
+            if (!psswrd.equals(str)) {
+                result.close();
+                System.out.println("\nLe mot de passe est incorrect.");
+                connexionUser();
+            } else {
+                PreparedStatement getIdUserSQL = conn.prepareStatement(getIdUser);
+                getIdUserSQL.setString(1, email);
+                ResultSet resultID = getIdUserSQL.executeQuery();
+                resultID.next();
+
+                int idUser = resultID.getInt("id_user");
+                String nom = result.getString("nom_user");
+                String prenom = result.getString("prenom");
+
+                PreparedStatement getIdAdhSQL = conn.prepareStatement(getIdAdh);
+                getIdAdhSQL.setString(1, String.valueOf(idUser));
+                resultID = getIdAdhSQL.executeQuery();
+
+                int idAdh = 0;
+
+                if (resultID.next()) {
+                    idAdh = resultID.getInt("id_adh");
+                }
+
+                user = new User(idUser, email, nom, prenom, idAdh);
+
+                System.out.println("\nConnexion réussie.");
+
+                resultID.close();
+                result.close();
+
+                menu();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            connexionUser();
+        }
+    }
+
+    private void menu() {
+        System.out.println("\n===== MENU PRINCIPAL =====\n");
+        System.out.println("Bienvenue, " + user.getPrenom() + " " + user.getNom() + " (n°" + user.getIdUser() + ").");
+        
         while (true) {
+            System.out.println("\nChoississez une option :");
+            System.out.println("[1] Parcours du catalogue");
+            System.out.println("[2] Reservation");
+            System.out.println("[3] Consultation du solde");
+            System.out.println("[4] Suppression des donnees personnelles");
+            System.out.println("[5] Quitter\n");
+            
             String cmd = getCmd();
+
+            // TODO
 
             if (cmd.equals("reservation")) {
                 System.out.println("Refuge 1 | Formation 2 | Materiel 3");
                 
                 if (getInt() == 3) {
-                    textReservMat();
+                    reservationMateriel();
                 } else {
                     System.out.println("Exited");
                 }
@@ -56,86 +134,6 @@ public class Interface {
         }
     }
 
-    private void textConnectionUser() {
-        System.out.println("Connexion utilisateur:\n");
-
-        System.out.println("Email ?\n");
-        String email = getCmd();
-        
-        System.out.println("Password ?\n");
-        String psswrd = getCmd();
-        
-        String getPsswrd = "SELECT password, prenom FROM membre WHERE mail_user = ?";
-        String getIdUser = "SELECT id_user FROM utilisateur WHERE mail_user = ?";
-
-        try {
-            PreparedStatement getPsswrdSQL = connection.prepareStatement(getPsswrd);
-            getPsswrdSQL.setString(1, email);
-            ResultSet result = getPsswrdSQL.executeQuery();
-            result.next();
-
-            String str = result.getString("password");
-
-            if (!psswrd.equals(str)) {
-                result.close();
-                System.out.println("MAUVAIS PASSWORD\n");
-                textConnectionUser();
-            } else {
-                PreparedStatement getIdUserSQL = connection.prepareStatement(getIdUser);
-                getIdUserSQL.setString(1, email);
-                ResultSet resultID = getIdUserSQL.executeQuery();
-                resultID.next();
-
-                idUser = resultID.getInt("id_user");
-                System.out.println("Connexion réussie\n");
-                String welcome = "Bienvenue " + result.getString("prenom");
-                System.out.println(welcome);
-                resultID.close();
-                result.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            textConnectionUser();
-        }
-    }
-
-    private void textReservMat() {
-        System.out.println("Reservation Materiel :\n");
-        ReservationMateriel reservation = new ReservationMateriel();
-        System.out.println("Tapez exit pour revenir au menu\n");
-
-        System.out.println("Marque ?\n");
-        String cmd = getCmd();
-
-        while (!cmd.equals("exit")) {
-            String marque = cmd;
-
-            System.out.println("Modele ?\n");
-            String modele = getCmd();
-
-            System.out.println("Annee ?\n");
-            int anneeAchat = getInt();
-
-            Lot lot = new Lot(marque, modele, anneeAchat, 0);
-
-            System.out.println("Quantite voulue ? \n");
-            int qte = getInt();
-
-            reservation.addLot(lot, qte);
-
-            System.out.println("Tapez exit pour revenir au menu ou la marque du prochain materiel a ajouter\n");
-
-            System.out.println("Marque ?\n");
-            cmd = getCmd();
-        }
-
-        if (reservation.getListLotReserve().isEmpty()) {
-            return;
-        }
-        
-        reservation.makeReservation();
-    }
-
     private void parcoursFormations() {
         try {
             String getFormation = "SELECT nom_formation, activite, date_formation, duree, nb_places_formation " +
@@ -145,7 +143,7 @@ public class Interface {
                     "AND formation.rang_formation = activites_formation.rang_formation " +
                     "GROUP BY date_formation ASC ORDER BY nom_formation ASC;";
 
-            PreparedStatement getFormationSQL = connection.prepareStatement(getFormation);
+            PreparedStatement getFormationSQL = conn.prepareStatement(getFormation);
             ResultSet result = getFormationSQL.executeQuery();
 
             while (result.next()) {
@@ -169,7 +167,7 @@ public class Interface {
                     "JOIN activite a ON al.activite = a.activite " +
                     "GROUP BY l.activite;";
 
-            PreparedStatement getMaterielSQL = connection.prepareStatement(getMateriel);
+            PreparedStatement getMaterielSQL = conn.prepareStatement(getMateriel);
             ResultSet result = getMaterielSQL.executeQuery();
 
             while (result.next()) {
@@ -186,7 +184,7 @@ public class Interface {
                     "JOIN activite a ON al.activite = a.activite " +
                     "GROUP BY l.categorie;";
 
-            PreparedStatement getMaterielCategorieSQL = connection.prepareStatement(getMaterielCategorie);
+            PreparedStatement getMaterielCategorieSQL = conn.prepareStatement(getMaterielCategorie);
             result = getMaterielCategorieSQL.executeQuery();
 
             while (result.next()) {
@@ -205,5 +203,42 @@ public class Interface {
                 +
                 "FROM refuge r" +
                 "ORDER BY (r.nb_places_nuits - COUNT(SELECT * FROM refuge WHERE date_res_refuge < CURRENT_DATE)) ASC, r.nom_refuge ASC";
+    }
+
+    private void reservationMateriel() {
+        System.out.println("Reservation Materiel :\n");
+        ReservationMateriel resMateriel = new ReservationMateriel();
+        System.out.println("Tapez exit pour revenir au menu\n");
+
+        System.out.println("Marque ?\n");
+        String cmd = getCmd();
+
+        while (!cmd.equals("exit")) {
+            String marque = cmd;
+
+            System.out.println("Modele ?\n");
+            String modele = getCmd();
+
+            System.out.println("Annee ?\n");
+            int anneeAchat = getInt();
+
+            Lot lot = new Lot(marque, modele, anneeAchat, 0);
+
+            System.out.println("Quantite voulue ? \n");
+            int qte = getInt();
+
+            resMateriel.addLot(lot, qte);
+
+            System.out.println("Tapez exit pour revenir au menu ou la marque du prochain materiel a ajouter\n");
+
+            System.out.println("Marque ?\n");
+            cmd = getCmd();
+        }
+
+        if (resMateriel.getListLotReserve().isEmpty()) {
+            return;
+        }
+        
+        resMateriel.makeReservation();
     }
 }
