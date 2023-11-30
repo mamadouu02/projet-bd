@@ -7,7 +7,7 @@
 - marque, modele, annee_achat, categorie, nb_pieces_lot, prix_caution, infos_materiel, annee_peremption
 - sous_categorie
 - id_user, mail_user, password, nom_user, prenom, adresse, id_adh
-- date_res_refuge, heure, nb_nuits, nb_repas, prix_res_refuge
+- date_res_refuge, nb_nuits, nb_repas, prix_res_refuge
 - rang_la
 - id_res_materiel, nb_pieces_res, date_emprunt, date_retour, nb_pieces_perdues
 - cout_res_refuge, cout_res_formation, somme_due, somme_remboursee
@@ -21,7 +21,7 @@
 - sous_categorie $\to$ categorie
 - id_user $\to$ mail_user, password, nom_user, prenom, adresse, id_adh
 - id_adh $\to$ id_user
-- id_user, mail_refuge $\to$ date_res_refuge, heure, nb_nuits, type_repas
+- id_user, mail_refuge $\to$ date_res_refuge, nb_nuits, type_repas
 - id_user, mail_refuge, type_repas $\to$ nb_repas
 - id_user, mail_refuge, nb_nuits, nb_repas $\to$ prix_res_refuge
 - id_adh, annee_formation, rang_formation $\to$ rang_la
@@ -84,7 +84,7 @@
 - **lot** : {<ins>marque</ins>, <ins>modele</ins>, <ins>annee_achat</ins>, categorie, nb_pieces_lot, prix_caution, activite, infos_materiel, annee_peremption}
 - **activites_lot** : {<ins>marque</ins>, <ins>modele</ins>, <ins>annee_achat</ins>, <ins>activite</ins>}
 - **membre** : {<ins>mail_user</ins>, password, nom_user, prenom, adresse}
-- **utilisateur** : {<ins>id_user</ins>, mail_user}
+- **utilisateur** : {<ins>id_user</ins>, mail_user, somme_remboursee}
 - **adherent** : {<ins>id_adh</ins>, id_user}
 - **reservation_refuge** : {<ins>id_user</ins>, <ins>mail_refuge</ins>, type_repas, nb_repas}
 - **quantite_repas** : {<ins>id_user</ins>, <ins>mail_refuge</ins>, <ins>type_repas</ins>, nb_repas}

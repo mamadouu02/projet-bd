@@ -3,20 +3,20 @@ import java.sql.*;
 public class JDBC {
 
     private static String url = "jdbc:oracle:thin:@oracle1.ensimag.fr:1521:oracle1";
-    private static String user = "binia";
-    private static String passwd = "binia";
-    private static Connection connection;
+    private static String user = "akliaib";
+    private static String passwd = "akliaib";
+    private static Connection conn;
 
     public static Connection getConnection() {
-        if (connection == null) {
+        if (conn == null) {
             try {
                 DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-                connection = DriverManager.getConnection(url, user, passwd);
+                conn = DriverManager.getConnection(url, user, passwd);
+                conn.setAutoCommit(false);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-
-        return connection;
+        return conn;
     }
 }

@@ -23,8 +23,9 @@ INSERT INTO formation VALUES (2023, 5, 'Ski de Randonnée', DATE '2023-12-05', 2
 INSERT INTO formation VALUES (2023, 6, 'Cascade de Glace', DATE '2023-12-20', 3, 15, 'Apprentissage de l''escalade de glace.', 250.00);
 INSERT INTO formation VALUES (2024, 1, 'Randonnée et Survie en Montagne', DATE '2024-06-01', 5, 25, 'Techniques de survie en milieu montagnard.', 180.00);
 INSERT INTO formation VALUES (2024, 2, 'Escalade de Montagne', DATE '2024-07-15', 6, 20, 'Escalade en haute montagne.', 280.00);
-INSERT INTO formation VALUES (2024, 3, 'Formation Combinée Spéléologie et Escalade', DATE '2024-08-10', 7, 15, 'Combinaison de l''escalade et de la spéléologie.', 320.00);
-INSERT INTO formation VALUES (2024, 4, 'Ski de Randonnée Avancé', DATE '2024-12-01', 4, 15, 'Pratique avancée du ski de randonnée en haute montagne.', 200.00);
+INSERT INTO formation VALUES (2024, 3, 'Ski de Randonnée Avancé', DATE '2024-07-15', 4, 15, 'Pratique avancée du ski de randonnée en haute montagne.', 200.00);
+INSERT INTO formation VALUES (2024, 4, 'Formation Combinée Spéléologie et Escalade', DATE '2024-08-10', 7, 15, 'Combinaison de l''escalade et de la spéléologie.', 320.00);
+INSERT INTO formation VALUES (2024, 5, 'Ski de Randonnée Avancé', DATE '2024-12-01', 4, 15, 'Pratique avancée du ski de randonnée en haute montagne.', 200.00);
 
 
 /* Table activite */
@@ -46,9 +47,10 @@ INSERT INTO activites_formation VALUES (2023, 6, 'cascade de glace');
 INSERT INTO activites_formation VALUES (2024, 1, 'randonnée');
 INSERT INTO activites_formation VALUES (2024, 2, 'escalade');
 INSERT INTO activites_formation VALUES (2024, 2, 'alpinisme');
-INSERT INTO activites_formation VALUES (2024, 3, 'spéléologie');
-INSERT INTO activites_formation VALUES (2024, 3, 'escalade');
-INSERT INTO activites_formation VALUES (2024, 4, 'randonnée');
+INSERT INTO activites_formation VALUES (2024, 3, 'ski de rando');
+INSERT INTO activites_formation VALUES (2024, 4, 'spéléologie');
+INSERT INTO activites_formation VALUES (2024, 4, 'escalade');
+INSERT INTO activites_formation VALUES (2024, 5, 'ski de rando');
 
 
 /* Table categorie */
@@ -136,9 +138,9 @@ INSERT INTO membre VALUES ('fitness@max.com', 'malveillancemax', 'Fitness', 'Mar
 INSERT INTO membre VALUES ('billy@hotmail.com', 'microsoft', 'Gates', 'Bilal', 'Washington');
 INSERT INTO membre VALUES ('jordan23@gmail.com', 'airjordan', 'Jordan', 'Michael', 'Chicago');
 INSERT INTO membre VALUES ('lebron@mvp.com', 'kingjames', 'James', 'LeBron', 'Los Angeles');
+INSERT INTO membre VALUES ('cr7@goat.com', '7', 'Penaldo', 'Cristiano', 'Portugal');
 INSERT INTO membre VALUES ('serenawilliams@yahoo.com', 'tennischamp', 'Williams', 'Serena', 'Florida');
 INSERT INTO membre VALUES ('federer@legend.com', 'forehand123', 'Federer', 'Roger', 'Switzerland');
-INSERT INTO membre VALUES ('ronaldo@goal.com', 'goalgetter7', 'Penaldo', 'Cristiano', 'Portugal');
 INSERT INTO membre VALUES ('messi@barca.com', 'barcapass', 'Pessi', 'Lionel', 'Argentina');
 INSERT INTO membre VALUES ('nadal@clay.com', 'claycourt', 'Nadal', 'Rafael', 'Spain');
 INSERT INTO membre VALUES ('kobebryant@mamba.com', 'blackmamba8', 'Bryant', 'Kobe', 'Los Angeles');
@@ -176,12 +178,12 @@ INSERT INTO adherent (id_user) VALUES (id_user_seq.CURRVAL);
 INSERT INTO utilisateur (mail_user) VALUES ('lebron@mvp.com');
 INSERT INTO adherent (id_user) VALUES (id_user_seq.CURRVAL);
 
+INSERT INTO utilisateur (mail_user) VALUES ('cr7@goat.com');
+INSERT INTO adherent (id_user) VALUES (id_user_seq.CURRVAL);
+
 INSERT INTO utilisateur (mail_user) VALUES ('serenawilliams@yahoo.com');
 
 INSERT INTO utilisateur (mail_user) VALUES ('federer@legend.com');
-INSERT INTO adherent (id_user) VALUES (id_user_seq.CURRVAL);
-
-INSERT INTO utilisateur (mail_user) VALUES ('ronaldo@goal.com');
 INSERT INTO adherent (id_user) VALUES (id_user_seq.CURRVAL);
 
 INSERT INTO utilisateur (mail_user) VALUES ('messi@barca.com');
@@ -226,21 +228,22 @@ INSERT INTO utilisateur (mail_user) VALUES ('magic@lakers.com');
 
 
 /* Table reservation_refuge */
-INSERT INTO reservation_refuge VALUES (1, 'refuge0@gmail.com', DATE '2023-12-01', '18:00', 2);
-INSERT INTO reservation_refuge VALUES (2, 'refuge1@gmail.com', DATE '2023-12-05', '20:30', 3);
-INSERT INTO reservation_refuge VALUES (3, 'refuge2@gmail.com', DATE '2023-12-10', '16:45', 1);
-INSERT INTO reservation_refuge VALUES (4, 'refuge1@gmail.com', DATE '2023-12-02', '21:15', 2);
-INSERT INTO reservation_refuge VALUES (5, 'refuge2@gmail.com', DATE '2023-12-08', '19:00', 4);
-INSERT INTO reservation_refuge VALUES (6, 'refuge0@gmail.com', DATE '2023-12-15', '19:30', 1);
-INSERT INTO reservation_refuge VALUES (7, 'refuge1@gmail.com', DATE '2023-12-20', '22:00', 2);
-INSERT INTO reservation_refuge VALUES (8, 'refuge2@gmail.com', DATE '2023-12-25', '18:15', 3);
-INSERT INTO reservation_refuge VALUES (9, 'refuge1@gmail.com', DATE '2023-12-18', '20:45', 1);
-INSERT INTO reservation_refuge VALUES (10, 'refuge2@gmail.com', DATE '2023-12-23', '21:30', 2);
-INSERT INTO reservation_refuge VALUES (11, 'refuge1@gmail.com', DATE '2023-12-30', '19:45', 3);
-INSERT INTO reservation_refuge VALUES (12, 'refuge2@gmail.com', DATE '2023-12-17', '20:00', 1);
-INSERT INTO reservation_refuge VALUES (13, 'refuge0@gmail.com', DATE '2023-12-28', '22:15', 2);
-INSERT INTO reservation_refuge VALUES (14, 'refuge1@gmail.com', DATE '2023-12-13', '18:30', 3);
-INSERT INTO reservation_refuge VALUES (15, 'refuge2@gmail.com', DATE '2023-12-22', '19:00', 1);
+INSERT INTO reservation_refuge VALUES (1, 'refuge0@gmail.com', TIMESTAMP '2023-12-01 18:00:00', 2);
+INSERT INTO reservation_refuge VALUES (2, 'refuge1@gmail.com', TIMESTAMP '2023-12-05 20:30:00', 3);
+INSERT INTO reservation_refuge VALUES (3, 'refuge2@gmail.com', TIMESTAMP '2023-12-10 16:45:00', 1);
+INSERT INTO reservation_refuge VALUES (4, 'refuge1@gmail.com', TIMESTAMP '2023-12-02 21:15:00', 2);
+INSERT INTO reservation_refuge VALUES (5, 'refuge2@gmail.com', TIMESTAMP '2023-12-08 19:00:00', 4);
+INSERT INTO reservation_refuge VALUES (6, 'refuge0@gmail.com', TIMESTAMP '2023-12-15 19:30:00', 1);
+INSERT INTO reservation_refuge VALUES (7, 'refuge1@gmail.com', TIMESTAMP '2023-12-20 22:00:00', 2);
+INSERT INTO reservation_refuge VALUES (7, 'refuge3@gmail.com', TIMESTAMP '2023-08-01 22:00:00', 2);
+INSERT INTO reservation_refuge VALUES (8, 'refuge2@gmail.com', TIMESTAMP '2023-12-25 18:15:00', 3);
+INSERT INTO reservation_refuge VALUES (9, 'refuge1@gmail.com', TIMESTAMP '2023-12-18 20:45:00', 1);
+INSERT INTO reservation_refuge VALUES (10, 'refuge2@gmail.com', TIMESTAMP '2023-12-23 21:30:00', 2);
+INSERT INTO reservation_refuge VALUES (11, 'refuge1@gmail.com', TIMESTAMP '2023-12-30 19:45:00', 3);
+INSERT INTO reservation_refuge VALUES (12, 'refuge2@gmail.com', TIMESTAMP '2023-12-17 20:00:00', 1);
+INSERT INTO reservation_refuge VALUES (13, 'refuge0@gmail.com', TIMESTAMP '2023-12-28 22:15:00', 2);
+INSERT INTO reservation_refuge VALUES (14, 'refuge1@gmail.com', TIMESTAMP '2023-12-13 18:30:00', 3);
+INSERT INTO reservation_refuge VALUES (15, 'refuge2@gmail.com', TIMESTAMP '2023-12-22 19:00:00', 1);
 
 
 /* Table quantite_repas */
@@ -292,6 +295,7 @@ INSERT INTO reservation_formation VALUES (8, 2023, 6, 0);
 INSERT INTO reservation_formation VALUES (12, 2023, 6, 0);
 INSERT INTO reservation_formation VALUES (16, 2023, 6, 0);
 
+INSERT INTO reservation_formation VALUES (7, 2024, 4, 0);
 
 /* Table location_materiel */
 INSERT INTO location_materiel (id_adh, date_emprunt, date_retour) VALUES (1, DATE '2023-05-01', DATE '2023-05-08');

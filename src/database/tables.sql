@@ -107,6 +107,7 @@ CREATE TABLE membre (
 CREATE TABLE utilisateur (
     id_user INTEGER DEFAULT id_user_seq.NEXTVAL PRIMARY KEY,
     mail_user VARCHAR(30),
+    somme_remboursee INTEGER DEFAULT 0 NOT NULL,
     FOREIGN KEY (mail_user) REFERENCES membre(mail_user)
 );
 
@@ -121,8 +122,7 @@ CREATE TABLE adherent (
 CREATE TABLE reservation_refuge (
     id_user INTEGER NOT NULL,
     mail_refuge VARCHAR(30) NOT NULL,
-    date_res_refuge DATE DEFAULT CURRENT_DATE NOT NULL,
-    heure VARCHAR(5) DEFAULT TO_CHAR(SYSDATE, 'HH24:MI') NOT NULL,
+    date_res_refuge TIMESTAMP NOT NULL,
     nb_nuits INTEGER NOT NULL,
     PRIMARY KEY (id_user, mail_refuge),
     FOREIGN KEY (id_user) REFERENCES utilisateur(id_user),

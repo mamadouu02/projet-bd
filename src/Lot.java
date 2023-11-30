@@ -12,6 +12,7 @@ public class Lot {
         this.qteDispo = qteDispo;
     }
 
+
     public String getMarque() {
         return marque;
     }
