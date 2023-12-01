@@ -33,7 +33,6 @@ public class Repas {
             stmt.setString(1, nom_refuge);
             ResultSet rset = stmt.executeQuery();
             while(rset.next()){
-                System.out.println(rset.getString(1));
                 if (rset.getString(1).compareTo("déjeuner")==0){
                     this.dejeuner = true;
                 } else if (rset.getString(1).compareTo("casse-croûte")==0){

@@ -1,5 +1,7 @@
+
 import java.sql.*;
 import java.util.Scanner;
+
 
 public class Interface {
 
@@ -360,7 +362,8 @@ public class Interface {
         if (dormir){
             System.out.println("\nNombre de nuit(s) :");
             nbNuits= getInt();
-        } else if (manger) {
+        }
+        if (manger) {
             Repas typeRepas = new Repas();
             typeRepas = typeRepas.repasDisponible(conn,refuge);
             System.out.println("\ntype de repas disponible :");

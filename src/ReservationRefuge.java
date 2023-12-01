@@ -17,13 +17,15 @@ public class ReservationRefuge{
         // return 4 si le nom est mauvais
         try {
             PreparedStatement stmt = conn.prepareStatement
-                    ("select date_ouverture, date_fermeture,mail_refuge,nb_places_nuits from Refuge where nom_refuge = ? ");
+                    ("select date_ouverture, date_fermeture,mail_refuge,nb_places_nuits,nb_places_repas from Refuge where nom_refuge = ? ");
             stmt.setString(1, nom_refuge);
-
+            int nbRepastot= 9;
             ResultSet rset = stmt.executeQuery();
             int nb_places_nuits = 0;
             if (rset.next()) {
                 nb_places_nuits  = rset.getInt(4);
+                nbRepastot = rset.getInt(5);
+
                 mail_refuge  = rset.getString("mail_refuge");
                 if ( res.compareTo(rset.getDate("date_ouverture"))<0) {
                     System.out.println("Date fournie < date d'ouverture du refuge");
@@ -40,9 +42,11 @@ public class ReservationRefuge{
             stmt2.setString(2,mail_refuge);
             ResultSet rset2 = stmt2.executeQuery();
             int[] tabDateRes = new int[nb_nuit];
+
             while(rset2.next()){
                 int diffdate = rset2.getInt(1);
                 int nbNUit = rset2.getInt(2);
+
                 if ((diffdate<0) && (diffdate +nbNUit >0) ){
                     int fin = (diffdate + nbNUit+1<nb_nuit)?diffdate+nbNUit+1:nb_nuit;
                     for (int i=0;i<fin ;i++){
@@ -57,28 +61,38 @@ public class ReservationRefuge{
             }
             Boolean place_restante = true;
             for (int i=0;i<nb_nuit;i++){
-                System.out.println(tabDateRes[i]);
+
                 if (tabDateRes[i]>= nb_places_nuits) {
                     place_restante = false;
-                    System.out.println("Désolé, Pour votre jour" +i+ "le refuge est complet");
+                    System.out.println("Désolé, Pour votre jour " +i+ " le refuge est complet");
                     break;
                 }
             }
-            RepasVoulu[0] = "jdd";
+
             if (dormir & !place_restante){
                 return 3;
             }
-            /*
-            if (dormir){
-                stmt = conn.prepareStatement(UpdateNbPlaceNuits);
-                stmt.setString(1, nom_refuge);
-                stmt.executeUpdate();
-            }
             if (manger){
-                stmt = conn.prepareStatement(UpdateNbPlaceRepas);
-                stmt.setString(1, nom_refuge);
-                stmt.executeUpdate();
-            }*/
+                for (int i=0;i<4;i++){
+                    if(RepasVoulu[i]==null) {
+
+                    }else{
+                        PreparedStatement stmt3 = conn.prepareStatement
+                                ("SELECT nb_repas from quantite_repas where mail_refuge = ? And types_repas = ");
+                        stmt3.setString(1,mail_refuge);
+                        stmt3.setString(2,RepasVoulu[i]);
+                        ResultSet rset3 = stmt3.executeQuery();
+                        if (rset3.getInt(1)>nbRepastot){
+                            System.out.println("Désolé il ne reste plus de "+ RepasVoulu[i] );
+                            return 2;
+                        }
+                    }
+
+                }
+            }
+
+
+
             return 0;
         }catch (SQLException e){
             //System.err.println("Verifie le nom du refuge fourni, il ne correspond à aucun refuge");
