@@ -683,6 +683,14 @@ public class Interface {
                 System.out.println("[2] Non, conserver mes données.");
                 choice = getCmd();
                 if(choice.equals("1")) {
+                    String maxUser= "SELECT MAX(id_user) FROM utilisateur";
+                    PreparedStatement maxUserQuery = conn.prepareStatement(maxUser);
+                    ResultSet result = maxUserQuery.executeQuery();
+                    result.next();
+                    int maxIdUser = Integer.valueOf(result.getString(1));
+
+                    int newIdUser = fonctionHashInjective(user.getIdUser(),maxIdUser);
+
                     String mail_user = user.getMail();
                     //On met à jour la table utilisateur pour rendre son mail à  NULL
                     String updateUser= "UPDATE utilisateur SET mail_user = NULL WHERE id_user = ? ";
@@ -693,6 +701,37 @@ public class Interface {
                     PreparedStatement deleteMemberQuery = conn.prepareStatement(deleteMember);
                     deleteMemberQuery.setString(1, mail_user);
                     deleteMemberQuery.executeUpdate(); //On supprime le membre de notre système
+
+                    String updateIdUser= "INSERT INTO utilisateur (id_user) VALUES (?)";
+                    PreparedStatement updateIdUserQuery = conn.prepareStatement(updateIdUser);
+                    updateIdUserQuery.setInt(1,newIdUser);
+                    updateIdUserQuery.executeUpdate();
+
+                    String updateIdUserAdherent= "UPDATE adherent SET id_user = ? WHERE id_user = ? ";
+                    PreparedStatement updateIdUserAdherentQuery = conn.prepareStatement(updateIdUserAdherent);
+                    updateIdUserAdherentQuery.setInt(1,newIdUser);
+                    updateIdUserAdherentQuery.setInt(2,user.getIdUser());
+                    updateIdUserAdherentQuery.executeUpdate();
+
+                    String updateIdUserReservationRefuge= "UPDATE reservation_refuge SET id_user = ? WHERE id_user = ? ";
+                    PreparedStatement updateIdUserReservationRefugeQuery = conn.prepareStatement(updateIdUserReservationRefuge);
+                    updateIdUserReservationRefugeQuery.setInt(1,newIdUser);
+                    updateIdUserReservationRefugeQuery.setInt(2,user.getIdUser());
+                    updateIdUserReservationRefugeQuery.executeUpdate();
+
+                    String updateIdUserQuantiteRepas= "UPDATE quantite_repas SET id_user = ? WHERE id_user = ? ";
+                    PreparedStatement updateIdUserQueryQuantiteRepas = conn.prepareStatement(updateIdUserQuantiteRepas);
+                    updateIdUserQueryQuantiteRepas.setInt(1,newIdUser);
+                    updateIdUserQueryQuantiteRepas.setInt(2,user.getIdUser());
+                    updateIdUserQueryQuantiteRepas.executeUpdate();
+
+                    String deleteIdUser= "DELETE FROM utilisateur WHERE id_user = ? ";
+                    PreparedStatement deleteIdUserQuery = conn.prepareStatement(deleteIdUser);
+                    deleteIdUserQuery.setInt(1,user.getIdUser());
+                    deleteIdUserQuery.executeUpdate();
+
+
+
                     System.out.println("Oups !!! Ça nous fait vraiment de la peine de vous partir !! ");
                     conn.commit();
                     conn.close();
