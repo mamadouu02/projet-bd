@@ -7,12 +7,9 @@ import javax.xml.crypto.Data;
 
 
 public class ReservationRefuge{
-    private String UpdateNbPlaceRepas = "UPDATE Refuge SET nb_places_repas =  nb_places_repas - 1 WHERE nom_refuge = ?";
-    private String UpdateNbPlaceNuits = "UPDATE Refuge SET nb_places_nuits =  nb_places_nuits - 1 WHERE nom_refuge = ?";
-    private String CompteNombre = "SELECT date FROM reservation_refuge WHERE date_res_refuge == ? ";
     private String mail_refuge;
 
-    public int testReservationRefuge(Connection conn,String nom_refuge,Date res, Boolean manger, Boolean dormir,int  nb_nuit  ) {
+    public int testReservationRefuge(Connection conn,String nom_refuge,Date res, Boolean manger, Boolean dormir,int  nb_nuit , String[] RepasVoulu ) {
         // return 0 si tout se passe bien
         // return 1 si il y a eu une date non conforme à l'intervalle
         // return 2 si le nombre de place pour les repas est à 0
@@ -22,12 +19,12 @@ public class ReservationRefuge{
             PreparedStatement stmt = conn.prepareStatement
                     ("select date_ouverture, date_fermeture,mail_refuge,nb_places_nuits from Refuge where nom_refuge = ? ");
             stmt.setString(1, nom_refuge);
-            
+
             ResultSet rset = stmt.executeQuery();
-            int nb_places_nuits = 0; 
+            int nb_places_nuits = 0;
             if (rset.next()) {
                 nb_places_nuits  = rset.getInt(4);
-                 mail_refuge  = rset.getString("mail_refuge");
+                mail_refuge  = rset.getString("mail_refuge");
                 if ( res.compareTo(rset.getDate("date_ouverture"))<0) {
                     System.out.println("Date fournie < date d'ouverture du refuge");
                     return 1;
@@ -44,11 +41,10 @@ public class ReservationRefuge{
             ResultSet rset2 = stmt2.executeQuery();
             int[] tabDateRes = new int[nb_nuit];
             while(rset2.next()){
-
                 int diffdate = rset2.getInt(1);
                 int nbNUit = rset2.getInt(2);
                 if ((diffdate<0) && (diffdate +nbNUit >0) ){
-                    long fin = (diffdate + nbNUit+1<nb_nuit)?diffdate+nbNUit+1:nb_nuit;
+                    int fin = (diffdate + nbNUit+1<nb_nuit)?diffdate+nbNUit+1:nb_nuit;
                     for (int i=0;i<fin ;i++){
                         tabDateRes[i]+=1;
                     }
@@ -68,6 +64,7 @@ public class ReservationRefuge{
                     break;
                 }
             }
+            RepasVoulu[0] = "jdd";
             if (dormir & !place_restante){
                 return 3;
             }

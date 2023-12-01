@@ -335,6 +335,7 @@ public class Interface {
         }
     }
 
+
     private void reservationRefuge() {
         System.out.println("\n===== RESERVATION DE REFUGE =====\n");
         System.out.println("Nom du Refuge :");
@@ -349,17 +350,60 @@ public class Interface {
         System.out.println("[2] Pas Manger et Dormir");
         System.out.println("[3] Manger et Dormir\n");
         int choix = getInt();
-        System.out.println("\nNombre de nuit(s) :");
-        int nbNuits = getInt();
+        int nbNuits =0;
+        Boolean dejeuner = false;
+        Boolean case_croute = false;
+        Boolean diner = false;
+        Boolean souper = false;
         Boolean manger = (choix ==1) | (choix==3);
         Boolean dormir = (choix >1);
+        if (dormir){
+            System.out.println("\nNombre de nuit(s) :");
+            nbNuits= getInt();
+        } else if (manger) {
+            Repas typeRepas = new Repas();
+            typeRepas = typeRepas.repasDisponible(conn,refuge);
+            System.out.println("\ntype de repas disponible :");
+
+            if(typeRepas.getDejeuner()==true){
+                System.out.println("\nVeux-tu un Déjeuner :");
+                System.out.println("[0] non");
+                System.out.println("[1] oui");
+                dejeuner = (getInt()==1);
+            }else if(typeRepas.getCasse_croute()){
+                System.out.println("\nVeux-tu un Casse_croute :");
+                System.out.println("[0] non");
+                System.out.println("[1] oui");
+                case_croute = (getInt()==1);
+            }else if(typeRepas.getDiner()){
+                System.out.println("\nVeux-tu un Diner :");
+                System.out.println("[0] non");
+                System.out.println("[1] oui");
+                diner = (getInt()==1);
+            }else if(typeRepas.getSouper()){
+                System.out.println("\nVeux-tu un Souper:");
+                System.out.println("[0] non");
+                System.out.println("[1] oui");
+                souper = (getInt()==1);
+            }
+
+
+
+
+        }
+        String[] repasvoulu = new String[4];
+        repasvoulu[0]= (dejeuner==true)? "déjeuner":null;
+        repasvoulu[1]= (case_croute==true)? "casse-croûte":null;
+        repasvoulu[2] = (diner==true)? "dîner":null;
+        repasvoulu[3] = (souper==true)? "souper":null;
+
         ReservationRefuge Resrefuge= new ReservationRefuge();
-        int res = Resrefuge.testReservationRefuge(conn,refuge,date_res,manger,dormir,nbNuits);
+        int res = Resrefuge.testReservationRefuge(conn,refuge,date_res,manger,dormir,nbNuits,repasvoulu);
         switch (res){
             case 0 :
 
-                 Resrefuge.insertReserveRefuge(conn,user.getIdUser(),user.getMail(),date_res,heure_res, nbNuits);
-                 break;
+                Resrefuge.insertReserveRefuge(conn,user.getIdUser(),user.getMail(),date_res,heure_res, nbNuits);
+                break;
             case 1:
                 System.out.println("\nChoississez une option :");
                 System.out.println("[0] Quitter");
@@ -671,6 +715,9 @@ public class Interface {
         }
     }
 
+    private int fonctionHashInjective(int entier, int max) {
+        return max + entier;
+    }
         //L'utilisateur exerce son droit à l'oubli : il ne veut plus garder ses infos personnelles dans notre système
     public void supprimerDonneesPersonnelles() {
         try {
