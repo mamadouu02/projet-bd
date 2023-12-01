@@ -3,7 +3,7 @@ INSERT INTO refuge VALUES ('refuge0@gmail.com', 'Refuge0', '0701010101', 'Alpes'
 INSERT INTO refuge VALUES ('refuge1@gmail.com', 'Refuge1', '0702010101', 'Pyrenées', DATE '2023-06-01', DATE '2023-09-30', 25, 15, 'Refuge avec une vue panoramique sur les Pyrénées.', 'carte-bleue', 35.00);
 INSERT INTO refuge VALUES ('refuge2@gmail.com', 'Refuge2', '0703010101', 'Forêt Noire', DATE '2023-04-15', DATE '2023-11-15', 8, 25, 'Refuge niché au cœur de la Forêt Noire.', 'chèque', 25.00);
 INSERT INTO refuge VALUES ('refuge3@gmail.com', 'Refuge3', '0704010101', 'Jura', DATE '2023-07-01', DATE '2023-09-15', 35, 18, 'Refuge offrant une vue imprenable sur le Jura.', 'espèce', 28.00);
-INSERT INTO refuge VALUES ('refuge4@gmail.com', 'Refuge4', '0705010101', 'Alpes', DATE '2023-12-01', DATE '2024-03-31', 2, 0, 'Refuge idéal pour les passionnés de montagne en hiver.', 'carte-bleue', 40.00);
+INSERT INTO refuge VALUES ('refuge4@gmail.com', 'Refuge4', '0705010101', 'Alpes', DATE '2023-12-01', DATE '2024-03-31', 2, 15, 'Refuge idéal pour les passionnés de montagne en hiver.', 'carte-bleue', 40.00);
 
 
 /* Table repas */
