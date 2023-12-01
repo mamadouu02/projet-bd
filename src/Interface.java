@@ -242,7 +242,7 @@ public class Interface {
             String cmd = getCmd();
 
             if (cmd.equals("1")){
-                String getMaterielCategorie = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot - (SELECT SUM(nb_pieces_perdues) FROM quantite_materiel) - (SELECT SUM(nb_pieces_res) FROM quantite_materiel), l.sous_categorie " +
+                String getMaterielCategorie = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot, l.sous_categorie " +
                         "FROM lot l " +
                         "JOIN activites_lot al ON l.marque = al.marque AND l.modele = al.modele AND l.annee_achat = al.annee_achat " +
                         "JOIN quantite_materiel qm ON al.marque = qm.marque AND al.modele = qm.modele AND al.annee_achat = qm.annee_achat " +
@@ -288,7 +288,7 @@ public class Interface {
                 }
                 result.close();
             } else if (cmd.equals("2")) {
-                String getMaterielActivite = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot - (SELECT SUM(nb_pieces_perdues) FROM quantite_materiel) - (SELECT SUM(nb_pieces_res) FROM quantite_materiel), l.activite " +
+                String getMaterielActivite = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot, l.activite " +
                         "FROM lot l " +
                         "JOIN activites_lot al ON l.marque = al.marque AND l.modele = al.modele AND l.annee_achat = al.annee_achat " +
                         "JOIN quantite_materiel qm ON al.marque = qm.marque AND al.modele = qm.modele AND al.annee_achat = qm.annee_achat " +
