@@ -21,7 +21,6 @@ public class ReservationRefuge{
         try {
             PreparedStatement stmt = conn.prepareStatement
                     ("select date_ouverture, date_fermeture,mail_refuge,nb_places_nuits from Refuge where nom_refuge = ? ");
-            System.out.println(nom_refuge);
             stmt.setString(1, nom_refuge);
             
             ResultSet rset = stmt.executeQuery();
@@ -30,11 +29,11 @@ public class ReservationRefuge{
                 nb_places_nuits  = rset.getInt(4);
                  mail_refuge  = rset.getString("mail_refuge");
                 if ( res.compareTo(rset.getDate("date_ouverture"))<0) {
-                    System.out.println("Date fourni < date d'ouverture du refuge");
+                    System.out.println("Date fournie < date d'ouverture du refuge");
                     return 1;
                 }
                 if ( res.compareTo(rset.getDate("date_fermeture"))>0) {
-                    System.out.println("Date fourni > date de fermeture du refuge");
+                    System.out.println("Date fournie > date de fermeture du refuge");
                     return 1;
                 }
             }
@@ -43,7 +42,6 @@ public class ReservationRefuge{
             stmt2.setDate(1,res);
             stmt2.setString(2,mail_refuge);
             ResultSet rset2 = stmt2.executeQuery();
-            System.out.println(mail_refuge);
             int[] tabDateRes = new int[nb_nuit];
             while(rset2.next()){
 
@@ -61,7 +59,6 @@ public class ReservationRefuge{
                 }
 
             }
-            System.out.println(nb_places_nuits);
             Boolean place_restante = true;
             for (int i=0;i<nb_nuit;i++){
                 if (tabDateRes[i]>= nb_places_nuits) {
@@ -105,9 +102,9 @@ public class ReservationRefuge{
             stmt.setDate(3, date);
             stmt.setString(4, heure_res);
             stmt.setInt(5, nb_nuit);
-            System.out.println(userid + mail_refuge + date + heure_res + nb_nuit);
+            System.out.println("\n" + userid + " " + mail_refuge + " " + date + " " + heure_res + " " + nb_nuit);
             stmt.executeUpdate();
-            System.out.println("Reservation effectué, il ne vous reste plus qu'à payer");
+            System.out.println("\nReservation effectuée, il ne vous reste plus qu'à payer");
             conn.commit();
         }catch (SQLException e) {
             System.err.println("failed");

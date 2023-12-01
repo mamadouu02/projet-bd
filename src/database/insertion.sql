@@ -1,9 +1,9 @@
 /* Table refuge */
-INSERT INTO refuge VALUES ('refuge0@gmail.com', 'Refuge Montagnard', '0701010101', 'Alpes', DATE '2023-05-01', DATE '2023-10-31', 30, 20, 'Refuge situé en plein cœur des Alpes.', 'espèce', 30.00);
-INSERT INTO refuge VALUES ('refuge1@gmail.com', 'Refuge Rocailleux', '0702010101', 'Pyrenées', DATE '2023-06-01', DATE '2023-09-30', 25, 15, 'Refuge avec une vue panoramique sur les Pyrénées.', 'carte-bleue', 35.00);
-INSERT INTO refuge VALUES ('refuge2@gmail.com', 'Refuge Forestier', '0703010101', 'Forêt Noire', DATE '2023-04-15', DATE '2023-11-15', 40, 25, 'Refuge niché au cœur de la Forêt Noire.', 'chèque', 25.00);
-INSERT INTO refuge VALUES ('refuge3@gmail.com', 'Refuge des Cimes', '0704010101', 'Jura', DATE '2023-07-01', DATE '2023-09-15', 35, 18, 'Refuge offrant une vue imprenable sur le Jura.', 'espèce', 28.00);
-INSERT INTO refuge VALUES ('refuge4@gmail.com', 'Refuge Glaciaire', '0705010101', 'Alpes', DATE '2023-12-01', DATE '2024-03-31', 20, 15, 'Refuge idéal pour les passionnés de montagne en hiver.', 'carte-bleue', 40.00);
+INSERT INTO refuge VALUES ('refuge0@gmail.com', 'Refuge0', '0701010101', 'Alpes', DATE '2023-05-01', DATE '2023-10-31', 30, 20, 'Refuge situé en plein cœur des Alpes.', 'espèce', 30.00);
+INSERT INTO refuge VALUES ('refuge1@gmail.com', 'Refuge1', '0702010101', 'Pyrenées', DATE '2023-06-01', DATE '2023-09-30', 25, 15, 'Refuge avec une vue panoramique sur les Pyrénées.', 'carte-bleue', 35.00);
+INSERT INTO refuge VALUES ('refuge2@gmail.com', 'Refuge2', '0703010101', 'Forêt Noire', DATE '2023-04-15', DATE '2023-11-15', 40, 25, 'Refuge niché au cœur de la Forêt Noire.', 'chèque', 25.00);
+INSERT INTO refuge VALUES ('refuge3@gmail.com', 'Refuge3', '0704010101', 'Jura', DATE '2023-07-01', DATE '2023-09-15', 35, 18, 'Refuge offrant une vue imprenable sur le Jura.', 'espèce', 28.00);
+INSERT INTO refuge VALUES ('refuge4@gmail.com', 'Refuge4', '0705010101', 'Alpes', DATE '2023-12-01', DATE '2024-03-31', 20, 15, 'Refuge idéal pour les passionnés de montagne en hiver.', 'carte-bleue', 40.00);
 
 
 /* Table repas */
@@ -132,7 +132,7 @@ INSERT INTO activites_lot VALUES ('GearPeak', 'ChaussuresSommet', 2022, 'randonn
 
 
 /* Table membre */
-INSERT INTO membre VALUES ('mobutu@psg.com', 'speedybaps', 'Bappon', 'Maurice', 'Paris');
+INSERT INTO membre VALUES ('bappon@psg.com', 'speedybaps', 'Bappon', 'Maurice', 'Paris');
 INSERT INTO membre VALUES ('bakary@bms.com', 'joelpostbad', 'Swag', 'Bakary', 'France');
 INSERT INTO membre VALUES ('fitness@max.com', 'malveillancemax', 'Fitness', 'Marvel', 'France');
 INSERT INTO membre VALUES ('billy@hotmail.com', 'microsoft', 'Gates', 'Bilal', 'Washington');
@@ -160,7 +160,7 @@ INSERT INTO membre VALUES ('magic@lakers.com', 'showtime', 'Johnson', 'Magic', '
 
 
 /* Tables utilisateur et adherent */
-INSERT INTO utilisateur (mail_user) VALUES ('mobutu@psg.com');
+INSERT INTO utilisateur (mail_user) VALUES ('bappon@psg.com');
 INSERT INTO adherent (id_user) VALUES (id_user_seq.CURRVAL);
 
 INSERT INTO utilisateur (mail_user) VALUES ('bakary@bms.com');

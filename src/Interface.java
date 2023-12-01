@@ -14,7 +14,7 @@ public class Interface {
 
     private String getCmd() {
         System.out.print("> ");
-        return sc.nextLine();
+        return sc.next();
     }
 
     private int getInt() {
@@ -24,7 +24,7 @@ public class Interface {
 
     private Date getDate(){
         System.out.print("> ");
-        Date date = Date.valueOf(sc.nextLine()); //converting string into sql date
+        Date date = Date.valueOf(sc.next()); //converting string into sql date
         return date;
     }
 
@@ -157,7 +157,7 @@ public class Interface {
                 System.out.println("\n===== SOLDE =====\n");
                 System.out.println("Choississez une option :");
                 System.out.println("[1] Consulter le solde");
-                System.out.println("[2] Remboursement");
+                System.out.println("[2] Remboursement\n");
 
                 cmd = getCmd();
 
@@ -196,10 +196,10 @@ public class Interface {
             ResultSet result = getRefugeSQL.executeQuery();
 
             while (result.next()) {
-                System.out.println("Nom : " + result.getString(1) + "\n" +
+                System.out.println("\nNom : " + result.getString(1) + "\n" +
                         "Secteur géographique : " + result.getString(2) + "\n" +
                         "Nombre de places pour dormir : " + result.getString(3) + "\n" +
-                        "Nombre de places pour manger :" + result.getString(4) + "\n");
+                        "Nombre de places pour manger : " + result.getString(4));
             }
 
             result.close();
@@ -221,11 +221,11 @@ public class Interface {
             ResultSet result = getFormationSQL.executeQuery();
 
             while (result.next()) {
-                System.out.println("Nom de formation : " + result.getString(1) + "\n" +
-                        "Activite : " + result.getString(2) + "\n" +
-                        "Date de formation : " + result.getString(3) + "\n" +
-                        "Duree : " + result.getString(4) +"\n" +
-                        "Nombre de places de formation : " + result.getString(5) + "\n") ;
+                System.out.println("\nNom de la formation : " + result.getString(1) + "\n" +
+                        "Activité : " + result.getString(2) + "\n" +
+                        "Date de la formation : " + result.getString(3) + "\n" +
+                        "Durée : " + result.getString(4) + "jours\n" +
+                        "Nombre de places de la formation : " + result.getString(5)) ;
             }
             result.close();
         } catch (SQLException e) {
@@ -235,9 +235,9 @@ public class Interface {
 
     private void parcoursMateriels() {
         try {
-            System.out.println("\nChoississez un type d'affichage :");
-            System.out.println("[1] Par catégorie");
-            System.out.println("[2] Par activité");
+            System.out.println("\nTri par :");
+            System.out.println("[1] Catégorie");
+            System.out.println("[2] Activité\n");
 
             String cmd = getCmd();
 
@@ -270,7 +270,7 @@ public class Interface {
                         System.out.println("\t Marque : " + result.getString(1) + "\n" +
                                 "\t Modèle : " + result.getString(2) + "\n" +
                                 "\t Nombre de pièces total : " + result.getString(3) + "\n" +
-                                "\t Nombre de pièces disponibles :" + result.getString(4) + "\n");
+                                "\t Nombre de pièces disponibles : " + result.getString(4) + "\n");
                         bool = result.next();
                     }
                     if (bool && !result.getString(5).equals(cat)) {
@@ -280,7 +280,7 @@ public class Interface {
                         System.out.println("\t Marque : " + result.getString(1) + "\n" +
                                 "\t Modèle : " + result.getString(2) + "\n" +
                                 "\t Nombre de pièces total : " + result.getString(3) + "\n" +
-                                "\t Nombre de pièces disponibles :" + result.getString(4) + "\n");
+                                "\t Nombre de pièces disponibles : " + result.getString(4) + "\n");
                         debut = true;
                     } else {
                         debut = false;
@@ -326,7 +326,7 @@ public class Interface {
                         System.out.println("\t Marque : " + result.getString(1) + "\n" +
                                 "\t Modèle : " + result.getString(2) + "\n" +
                                 "\t Nombre de pièces total : " + result.getString(3) + "\n" +
-                                "\t Nombre de pièces disponibles :" + result.getString(4) + "\n");
+                                "\t Nombre de pièces disponibles : " + result.getString(4) + "\n");
                         debut = true;
                     } else {
                         debut = false;
@@ -345,17 +345,17 @@ public class Interface {
         System.out.println("\n===== RESERVATION DE REFUGE =====\n");
         System.out.println("Nom du Refuge :");
         String refuge = getCmd();
-        System.out.println("Date de reservation (YYYY-MM-DD) :");
+        System.out.println("\nDate de reservation (YYYY-MM-DD) :");
         Date date_res = getDate();
-        System.out.println("Heure de reservation (hh:mm) :");
+        System.out.println("\nHeure de reservation (hh:mm) :");
         String heure_res = getCmd();
         System.out.println("Choississez une option :");
         System.out.println("[0] pas Manger et pas dormir");
         System.out.println("[1] Manger et Pas dormir");
-        System.out.println("[2] Pas Manger et Dormir\n");
+        System.out.println("[2] Pas Manger et Dormir");
         System.out.println("[3] Manger et Dormir\n");
         int choix = getInt();
-        System.out.println("Nombre de nuit(s) :");
+        System.out.println("\nNombre de nuit(s) :");
         int nbNuits = getInt();
         Boolean manger = (choix ==1) | (choix==3);
         Boolean dormir = (choix >1);
@@ -367,7 +367,7 @@ public class Interface {
                  Resrefuge.insertReserveRefuge(conn,user.getIdUser(),user.getMail(),date_res,heure_res, nbNuits);
                  break;
             case 1:
-                System.out.println("Choississez une option :");
+                System.out.println("\nChoississez une option :");
                 System.out.println("[0] Quitter");
                 System.out.println("[1] Reserver à une autre date");
                 choix = getInt();
@@ -398,11 +398,16 @@ public class Interface {
     private void reservationFormation() {
         try {
             System.out.println("\n===== RESERVATION DE FORMATION =====\n");
+            
+            if (user.getIdAdh() == 0) {
+                System.out.println("Vous devez être adhérent pour réserver une formation.");
+                menu();
+            }
 
             System.out.println("Année de la formation :");
             int annee = getInt();
 
-            System.out.println("Rang de la formation :");
+            System.out.println("\nRang de la formation :");
             int rang = getInt();
 
             String query = "SELECT annee_formation, rang_formation FROM formation WHERE annee_formation = ? AND rang_formation = ?";
@@ -413,7 +418,7 @@ public class Interface {
 
             if (!res.next()) {
                 prepare.close();
-                System.out.println("La formation choisie est inexistante.");
+                System.out.println("\nLa formation choisie est inexistante.");
                 menu();
             }
 
@@ -438,6 +443,8 @@ public class Interface {
             rangLA = Math.max(0, rangLA - nbPlacesFormation);
             prepare3.close();
 
+            res.close();
+
             String query4 = "INSERT INTO reservation_formation VALUES (?, ?, ?, ?)";
             PreparedStatement prepare4 = conn.prepareStatement(query4);
             prepare4.setInt(1, user.getIdAdh());
@@ -448,51 +455,55 @@ public class Interface {
             prepare4.close();
 
             conn.commit();
+
+            if (rangLA == 0) {
+                System.out.println("\nVous êtes inscrit à la formation.");
+            } else {
+                System.out.println("\nVous êtes en liste complémentaire (rang : " + rangLA + ").");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     };
 
     private void reservationMateriel() {
-        System.out.println("Reservation Materiel :\n");
+        System.out.println("\n===== RESERVATION DE MATERIEL =====\n");
 
         //Check si l'user est adherent
         if(user.getIdAdh()==0){
-            System.out.println("ERREUR : Vous devez etre adherent pour reserver du materiel\n");
+            System.out.println("ERREUR : Vous devez etre adherent pour reserver du materiel");
             menu();
         }
         ///////////////
 
         ReservationMateriel resMateriel = new ReservationMateriel(this.conn,this.user.getIdAdh());
 
-        System.out.println("Tapez exit pour revenir au menu\n");
-
-        System.out.println("Date de retour AAAA-MM-JJ?\n");
-
+        System.out.println("Date de retour (AAAA-MM-JJ) :");
         resMateriel.dateRetour=getDate();
-        System.out.println("Marque ?\n");
+
+        System.out.println("\nMarque :");
         String cmd = getCmd();
 
         while (!cmd.equals("exit")) {
             String marque = cmd;
 
-            System.out.println("Modele ?\n");
+            System.out.println("\nModèle :");
             String modele = getCmd();
 
-            System.out.println("Annee ?\n");
+            System.out.println("\nAnnée :");
             int anneeAchat = getInt();
 
             Lot lot = new Lot(marque, modele, anneeAchat, 0);
 
-            System.out.println("Quantite voulue ? \n");
+            System.out.println("\nQuantité voulue :");
             int qte = getInt();
 
             resMateriel.addLot(lot, qte);
 
-            System.out.println("Si vous avez finit tapez exit pour revenir au menu sinon tapez la marque du prochain materiel a ajouter\n");
+            // System.out.println("\nSi vous avez fini, tapez exit pour revenir au menu, sinon, tapez la marque du prochain matériel à ajouter.");
 
-            System.out.println("Marque ?\n");
-            cmd = getCmd();
+            System.out.println("\nMarque :");
+            cmd = "exit";
         }
 
         if (resMateriel.getListLotReserve().isEmpty()) {
@@ -500,7 +511,6 @@ public class Interface {
         }
         
         resMateriel.makeReservation();
-
     }
 
     public void retourMateriel() {
@@ -523,7 +533,7 @@ public class Interface {
                 int Annee = result.getInt("annee_achat");
                 int idRez = result.getInt("id_res_formation");
 
-                System.out.println("Quantite perdu pour tel lot");
+                System.out.println("Quantite perdue pour tel lot");
                 System.out.println(Marque + " " + Modele + " " + Annee);
 
                 int qttPerdu = getInt();
@@ -560,13 +570,11 @@ public class Interface {
 
             ResultSet result = getCoutReservationRefugeSQL.executeQuery();
             result.next();
-            System.out.println("Coût des réservations des refuges : " + result.getString(1));
+            System.out.println("\nCoût des réservations des refuges : " + result.getString(1));
             result.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("\n");
-
 
 
         try {
@@ -582,8 +590,6 @@ public class Interface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("\n");
-
 
 
         try {
@@ -599,8 +605,6 @@ public class Interface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("\n");
-
 
 
         try {
@@ -616,7 +620,6 @@ public class Interface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("\n");
     }
 
     private void remboursement() {
@@ -626,8 +629,8 @@ public class Interface {
             PreparedStatement getCoutMaterielAbimeSQL = conn.prepareStatement(getCoutMaterielAbime);
             getCoutMaterielAbimeSQL.setString(1, id_adh_connecte);
             ResultSet result = getCoutMaterielAbimeSQL.executeQuery();
-            int sommeTotal = result.getInt(1);
             result.next();
+            int sommeTotal = result.getInt(1);
             result.close();
 
 
@@ -642,8 +645,8 @@ public class Interface {
 
             int aRembourser = sommeTotal - sommeRemboursee;
 
-            System.out.println("Reste à payer : " + aRembourser);
-            System.out.println("Combien voulez-vous payer ? ");
+            System.out.println("\nReste à payer : " + aRembourser);
+            System.out.println("Combien voulez-vous payer ?\n");
 
             String cmd = getCmd();
 
@@ -655,7 +658,7 @@ public class Interface {
             result = getSommeRembourseeMAJSQL.executeQuery();
             result.next();
             result.close();
-            System.out.println("Votre solde a bien été mis à jour.");
+            System.out.println("\nVotre solde a bien été mis à jour.");
             System.out.println("Reste à payer : " + aRembourser);
 
         } catch (SQLException e) {

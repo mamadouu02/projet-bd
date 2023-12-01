@@ -17,15 +17,18 @@ public class ReservationMateriel {
     private String getAdh = "SELECT * FROM adherent WHERE id_user = ?";
     private String addQte = "INSERT INTO quantite_materiel VALUES (?, ?, ?, ?, ?, ?)";
     private String getDatePeremption = "SELECT annee_peremption FROM lot WHERE marque = ? AND modele = ? AND annee_achat = ?";
+    private String getKey = "SELECT id_res_materiel_seq.CURRVAL FROM DUAL";
 
     public ReservationMateriel(Connection conn,int idAdh) {
         this.connection = conn;
         this.listLotReserve = new HashMap<>();
+        this.idAdh = idAdh;
     }
 
     public ReservationMateriel(Map<Lot, Integer> listLotReserve, int idAdh, Date dateEmprunt, Date dateRetour) {
         this.connection = JDBC.getConnection();
         this.listLotReserve = new HashMap<>(listLotReserve);
+        this.idAdh = idAdh;
     }
 
     public Map<Lot, Integer> getListLotReserve() {
@@ -107,6 +110,7 @@ public class ReservationMateriel {
             PreparedStatement updateLotSQL = connection.prepareStatement(updateLot);
             PreparedStatement addQteSQL = connection.prepareStatement(addQte);
             PreparedStatement addReservSQL = connection.prepareStatement(addReserv, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement getKeySQL = connection.prepareStatement(getKey);
             //Creation Reservation
 
             addReservSQL.setInt(1,this.idAdh);
@@ -118,9 +122,9 @@ public class ReservationMateriel {
             //Retour num reservation
             addReservSQL.executeUpdate();
 
-            ResultSet key = addReservSQL.getGeneratedKeys();
+            ResultSet key = getKeySQL.executeQuery();
             int numRez=-1;
-            if(key.next()) {
+            if (key.next()) {
                 numRez = key.getInt(1);
             }
 
@@ -128,7 +132,7 @@ public class ReservationMateriel {
                 // quantite a reserver demander
                 int qte = listLotReserve.get(lot);
 
-   /*             PreparedStatement getLotSQL = connection.prepareStatement(getLot);
+                PreparedStatement getLotSQL = connection.prepareStatement(getLot);
                 getLotSQL.setString(1, lot.getMarque());
                 getLotSQL.setString(2, lot.getModele());
                 getLotSQL.setInt(3, lot.getAnneeAchat());
@@ -143,7 +147,7 @@ public class ReservationMateriel {
                     // abort
                     connection.rollback();
                     return;
-                }*/
+                }
 
                 // Mise a jour inventaire
 
@@ -163,12 +167,11 @@ public class ReservationMateriel {
                 addQteSQL.setInt(6, 0);
                 addQteSQL.executeUpdate();
             }
-            System.out.println("Votre numéro de reservation de materiel est : "+ key.getInt(1) +" \n");
+            System.out.println("Votre numéro de réservation de matériel est : "+ key.getInt(1));
 
 
             connection.commit();
         } catch (SQLException e) {
-            System.out.println("ERREUR");
             e.printStackTrace();
         }
     }
