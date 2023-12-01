@@ -242,11 +242,8 @@ public class Interface {
             String cmd = getCmd();
 
             if (cmd.equals("1")){
-                String getMaterielCategorie = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot - (SELECT SUM(nb_pieces_perdues) FROM quantite_materiel) - (SELECT SUM(nb_pieces_res) FROM quantite_materiel), l.sous_categorie " +
+                String getMaterielCategorie = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot, l.sous_categorie " +
                         "FROM lot l " +
-                        "JOIN activites_lot al ON l.marque = al.marque AND l.modele = al.modele AND l.annee_achat = al.annee_achat " +
-                        "JOIN quantite_materiel qm ON al.marque = qm.marque AND al.modele = qm.modele AND al.annee_achat = qm.annee_achat " +
-                        "JOIN activite a ON al.activite = a.activite " +
                         "ORDER BY l.sous_categorie ASC";
 
                 PreparedStatement getMaterielCategorieSQL = conn.prepareStatement(getMaterielCategorie);
@@ -288,11 +285,8 @@ public class Interface {
                 }
                 result.close();
             } else if (cmd.equals("2")) {
-                String getMaterielActivite = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot - (SELECT SUM(nb_pieces_perdues) FROM quantite_materiel) - (SELECT SUM(nb_pieces_res) FROM quantite_materiel), l.activite " +
+                String getMaterielActivite = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot, l.activite " +
                         "FROM lot l " +
-                        "JOIN activites_lot al ON l.marque = al.marque AND l.modele = al.modele AND l.annee_achat = al.annee_achat " +
-                        "JOIN quantite_materiel qm ON al.marque = qm.marque AND al.modele = qm.modele AND al.annee_achat = qm.annee_achat " +
-                        "JOIN activite a ON al.activite = a.activite " +
                         "ORDER BY l.activite ASC";
 
                 PreparedStatement getMaterielActiviteSQL = conn.prepareStatement(getMaterielActivite);
@@ -600,7 +594,7 @@ public class Interface {
 
         try {
             String id_adh_connecte = String.valueOf(user.getIdAdh());
-            String getCoutMaterielAbime = "SELECT (l.prix_caution*q.nb_pieces_perdues) FROM quantite_materiel q JOIN lot l ON q.marque = l.marque AND q.modele = l.modele AND q.annee_achat = l.annee_achat JOIN location_materiel lm ON q.id_res_materiel = lm.id_res_materiel WHERE lm.id_adh = ?";
+            String getCoutMaterielAbime = "SELECT SUM(l.prix_caution*q.nb_pieces_perdues) FROM quantite_materiel q JOIN lot l ON q.marque = l.marque AND q.modele = l.modele AND q.annee_achat = l.annee_achat JOIN location_materiel lm ON q.id_res_materiel = lm.id_res_materiel WHERE lm.id_adh = ?";
             PreparedStatement getCoutMaterielAbimeSQL = conn.prepareStatement(getCoutMaterielAbime);
             getCoutMaterielAbimeSQL.setString(1, id_adh_connecte);
 
@@ -656,11 +650,11 @@ public class Interface {
 
             String cmd = getCmd();
 
-            String getSommeRembourseeMAJ = "UPDATE utilisateur SET somme_remboursee = ? WHERE id_user = ?";
+            String getSommeRembourseeMAJ = "UPDATE utilisateur SET somme_remboursee = somme_remboursee + ? WHERE id_user = ?";
             PreparedStatement getSommeRembourseeMAJSQL = conn.prepareStatement(getSommeRembourseeMAJ);
             getSommeRembourseeMAJSQL.setString(1, cmd);
             aRembourser -= Integer.valueOf(cmd);
-            if (aRembourser >= 0){
+            if (aRembourser >= 0) {
                 getSommeRembourseeMAJSQL.setString(2, id_user_connecte);
                 result = getSommeRembourseeMAJSQL.executeQuery();
                 result.next();
@@ -668,10 +662,9 @@ public class Interface {
                 System.out.println("\nVotre solde a bien été mis à jour.");
                 System.out.println("Reste à payer : " + aRembourser);
             } else {
-                System.out.println("Veuillez saisir un montant inférieur à la somme à rembourser.");
+                System.out.println("Veuillez saisir un montant inférieur à la somme à rembourser. \n");
                 remboursement();
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -690,6 +683,14 @@ public class Interface {
                 System.out.println("[2] Non, conserver mes données.");
                 choice = getCmd();
                 if(choice.equals("1")) {
+                    String maxUser= "SELECT MAX(id_user) FROM utilisateur";
+                    PreparedStatement maxUserQuery = conn.prepareStatement(maxUser);
+                    ResultSet result = maxUserQuery.executeQuery();
+                    result.next();
+                    int maxIdUser = Integer.valueOf(result.getString(1));
+
+                    int newIdUser = fonctionHashInjective(user.getIdUser(),maxIdUser);
+
                     String mail_user = user.getMail();
                     //On met à jour la table utilisateur pour rendre son mail à  NULL
                     String updateUser= "UPDATE utilisateur SET mail_user = NULL WHERE id_user = ? ";
@@ -700,6 +701,37 @@ public class Interface {
                     PreparedStatement deleteMemberQuery = conn.prepareStatement(deleteMember);
                     deleteMemberQuery.setString(1, mail_user);
                     deleteMemberQuery.executeUpdate(); //On supprime le membre de notre système
+
+                    String updateIdUser= "INSERT INTO utilisateur (id_user) VALUES (?)";
+                    PreparedStatement updateIdUserQuery = conn.prepareStatement(updateIdUser);
+                    updateIdUserQuery.setInt(1,newIdUser);
+                    updateIdUserQuery.executeUpdate();
+
+                    String updateIdUserAdherent= "UPDATE adherent SET id_user = ? WHERE id_user = ? ";
+                    PreparedStatement updateIdUserAdherentQuery = conn.prepareStatement(updateIdUserAdherent);
+                    updateIdUserAdherentQuery.setInt(1,newIdUser);
+                    updateIdUserAdherentQuery.setInt(2,user.getIdUser());
+                    updateIdUserAdherentQuery.executeUpdate();
+
+                    String updateIdUserReservationRefuge= "UPDATE reservation_refuge SET id_user = ? WHERE id_user = ? ";
+                    PreparedStatement updateIdUserReservationRefugeQuery = conn.prepareStatement(updateIdUserReservationRefuge);
+                    updateIdUserReservationRefugeQuery.setInt(1,newIdUser);
+                    updateIdUserReservationRefugeQuery.setInt(2,user.getIdUser());
+                    updateIdUserReservationRefugeQuery.executeUpdate();
+
+                    String updateIdUserQuantiteRepas= "UPDATE quantite_repas SET id_user = ? WHERE id_user = ? ";
+                    PreparedStatement updateIdUserQueryQuantiteRepas = conn.prepareStatement(updateIdUserQuantiteRepas);
+                    updateIdUserQueryQuantiteRepas.setInt(1,newIdUser);
+                    updateIdUserQueryQuantiteRepas.setInt(2,user.getIdUser());
+                    updateIdUserQueryQuantiteRepas.executeUpdate();
+
+                    String deleteIdUser= "DELETE FROM utilisateur WHERE id_user = ? ";
+                    PreparedStatement deleteIdUserQuery = conn.prepareStatement(deleteIdUser);
+                    deleteIdUserQuery.setInt(1,user.getIdUser());
+                    deleteIdUserQuery.executeUpdate();
+
+
+
                     System.out.println("Oups !!! Ça nous fait vraiment de la peine de vous partir !! ");
                     conn.commit();
                     conn.close();
