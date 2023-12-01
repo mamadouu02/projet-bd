@@ -121,7 +121,8 @@ public class Interface {
                 System.out.println("Choississez une option :");
                 System.out.println("[1] Consulter les refuges");
                 System.out.println("[2] Consulter les formations");
-                System.out.println("[3] Consulter le matériel\n");
+                System.out.println("[3] Consulter le matériel");
+                System.out.println("[4] Consulter la fiche complète\n");
 
                 cmd = getCmd();
 
@@ -131,6 +132,8 @@ public class Interface {
                     parcoursFormations();
                 } else if (cmd.equals("3")) {
                     parcoursMateriels();
+                } else if (cmd.equals("4")) {
+                    parcoursFicheComplete();
                 } else {
                     System.out.println("Exited.");
                 }
@@ -335,6 +338,105 @@ public class Interface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void parcoursFicheComplete(){
+        System.out.println("===== Refuges ======");
+        try {
+            String getRefuge = "SELECT r.nom_refuge, r.secteur_geo, r.nb_places_nuits, r.nb_places_repas " +
+                    "FROM refuge r " +
+                    "ORDER BY r.nb_places_nuits, r.nom_refuge ASC";
+
+            PreparedStatement getRefugeSQL = conn.prepareStatement(getRefuge);
+            ResultSet result = getRefugeSQL.executeQuery();
+
+            while (result.next()) {
+                System.out.println("\nNom : " + result.getString(1) + "\n" +
+                        "Secteur géographique : " + result.getString(2) + "\n" +
+                        "Nombre de places pour dormir : " + result.getString(3) + "\n" +
+                        "Nombre de places pour manger : " + result.getString(4));
+            }
+
+            result.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println("\n \n===== Formations ======");
+        try {
+            String getFormation = "SELECT nom_formation, activite, date_formation, duree, nb_places_formation " +
+                    "FROM formation " +
+                    "JOIN activites_formation " +
+                    "ON formation.annee_formation = activites_formation.annee_formation " +
+                    "AND formation.rang_formation = activites_formation.rang_formation " +
+                    "ORDER BY date_formation, nom_formation ASC";
+
+            PreparedStatement getFormationSQL = conn.prepareStatement(getFormation);
+            ResultSet result = getFormationSQL.executeQuery();
+
+            while (result.next()) {
+                System.out.println("\nNom de la formation : " + result.getString(1) + "\n" +
+                        "Activité : " + result.getString(2) + "\n" +
+                        "Date de la formation : " + result.getString(3) + "\n" +
+                        "Durée : " + result.getString(4) + "jours\n" +
+                        "Nombre de places de la formation : " + result.getString(5)) ;
+            }
+            result.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("\n \n ===== Materiel ======\n");
+        try {
+                String getMaterielCategorie = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot, l.sous_categorie " +
+                        "FROM lot l " +
+                        "ORDER BY l.sous_categorie ASC";
+
+                PreparedStatement getMaterielCategorieSQL = conn.prepareStatement(getMaterielCategorie);
+                ResultSet result = getMaterielCategorieSQL.executeQuery();
+
+                int i = 0;
+                boolean bool = true;
+                boolean debut = false;
+                String cat = "";
+                while (result.next()) {
+                    if (debut && !result.getString(5).equals(cat)){
+                        i++;
+                        System.out.println("Catégorie n°" + i + " : " + result.getString(5));
+                    }
+                    cat = result.getString(5);
+                    if (!debut) {
+                        i++;
+                        System.out.println("Catégorie n°" + i + " : " + cat);
+                    }
+                    while (bool && result.getString(5).equals(cat)) {
+                        System.out.println("\t Marque : " + result.getString(1) + "\n" +
+                                "\t Modèle : " + result.getString(2) + "\n" +
+                                "\t Nombre de pièces total : " + result.getString(3) + "\n" +
+                                "\t Nombre de pièces disponibles : " + result.getString(4) + "\n");
+                        bool = result.next();
+                    }
+                    if (bool && !result.getString(5).equals(cat)) {
+                        i++;
+                        cat = result.getString(5);
+                        System.out.println("Catégorie n°" + i + " : " + cat);
+                        System.out.println("\t Marque : " + result.getString(1) + "\n" +
+                                "\t Modèle : " + result.getString(2) + "\n" +
+                                "\t Nombre de pièces total : " + result.getString(3) + "\n" +
+                                "\t Nombre de pièces disponibles : " + result.getString(4) + "\n");
+                        debut = true;
+                    } else {
+                        debut = false;
+                    }
+                }
+                result.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
 
