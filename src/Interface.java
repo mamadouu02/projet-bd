@@ -656,7 +656,7 @@ public class Interface {
 
             String cmd = getCmd();
 
-            String getSommeRembourseeMAJ = "UPDATE utilisateur SET somme_remboursee = ? WHERE id_user = ?";
+            String getSommeRembourseeMAJ = "UPDATE utilisateur SET somme_remboursee = somme_remboursee + ? WHERE id_user = ?";
             PreparedStatement getSommeRembourseeMAJSQL = conn.prepareStatement(getSommeRembourseeMAJ);
             getSommeRembourseeMAJSQL.setString(1, cmd);
             aRembourser -= Integer.valueOf(cmd);
