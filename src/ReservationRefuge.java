@@ -61,6 +61,7 @@ public class ReservationRefuge{
             }
             Boolean place_restante = true;
             for (int i=0;i<nb_nuit;i++){
+                System.out.println(tabDateRes[i]);
                 if (tabDateRes[i]>= nb_places_nuits) {
                     place_restante = false;
                     System.out.println("Désolé, Pour votre jour" +i+ "le refuge est complet");

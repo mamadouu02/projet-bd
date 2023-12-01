@@ -660,12 +660,18 @@ public class Interface {
             PreparedStatement getSommeRembourseeMAJSQL = conn.prepareStatement(getSommeRembourseeMAJ);
             getSommeRembourseeMAJSQL.setString(1, cmd);
             aRembourser -= Integer.valueOf(cmd);
-            getSommeRembourseeMAJSQL.setString(2, id_user_connecte);
-            result = getSommeRembourseeMAJSQL.executeQuery();
-            result.next();
-            result.close();
-            System.out.println("\nVotre solde a bien été mis à jour.");
-            System.out.println("Reste à payer : " + aRembourser);
+            if (aRembourser >= 0){
+                getSommeRembourseeMAJSQL.setString(2, id_user_connecte);
+                result = getSommeRembourseeMAJSQL.executeQuery();
+                result.next();
+                result.close();
+                System.out.println("\nVotre solde a bien été mis à jour.");
+                System.out.println("Reste à payer : " + aRembourser);
+            } else {
+                System.out.println("Veuillez saisir un montant inférieur à la somme à rembourser.");
+                remboursement();
+            }
+
 
         } catch (SQLException e) {
             e.printStackTrace();
