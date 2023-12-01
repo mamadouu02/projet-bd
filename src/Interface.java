@@ -30,12 +30,6 @@ public class Interface {
         return date;
     }
 
-    private Timestamp getTime(){
-        System.out.print("> ");
-        String test = sc.nextLine();
-        Timestamp date = Timestamp.valueOf(test); //converting string into sql date
-        return date;
-    }
     public void connexionUser() {
         try {
             System.out.println("\n===== CONNEXION =====\n");
@@ -339,8 +333,8 @@ public class Interface {
         System.out.println("\n===== RESERVATION DE REFUGE =====\n");
         System.out.println("Nom du Refuge :");
         String refuge = getCmd();
-        System.out.println("Date de reservation (YYYY-MM-DD hh:mm:00) :");
-        Timestamp date_res = getTime();
+        System.out.println("Date de reservation (YYYY-MM-DD) :");
+        Date date_res = getDate();
         System.out.println("Choississez une option :");
         System.out.println("[0] pas Manger et pas dormir");
         System.out.println("[1] Manger et Pas dormir");

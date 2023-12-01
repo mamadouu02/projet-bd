@@ -1,6 +1,6 @@
 
 import java.sql.*;
-
+import java.util.Calendar;
 
 import javax.xml.crypto.Data;
 
@@ -11,7 +11,7 @@ public class ReservationRefuge{
     private String UpdateNbPlaceNuits = "UPDATE Refuge SET nb_places_nuits =  nb_places_nuits - 1 WHERE nom_refuge = ?";
     private String CompteNombre = "SELECT date FROM reservation_refuge WHERE date_res_refuge == ?) ";
 
-    public int testReservationRefuge(Connection conn,String nom_refuge,Timestamp res, Boolean manger, Boolean dormir,int  nb_nuit  ) {
+    public int testReservationRefuge(Connection conn,String nom_refuge,Date res, Boolean manger, Boolean dormir,int  nb_nuit  ) {
         // return 0 si tout se passe bien
         // return 1 si il y a eu une date non conforme à l'intervalle
         // return 2 si le nombre de place pour les repas est à 0
@@ -35,17 +35,18 @@ public class ReservationRefuge{
                 }
             }
             PreparedStatement stmt2 = conn.prepareStatement
-                    ("SELECT date_res_refuge - TIMESTAMP ?,nb_nuits from reservation_refuge where mail_refuge = ?");
-            stmt2.setTimestamp(1,res);
+                    ("SELECT date_res_refuge -  ? ,nb_nuits from reservation_refuge where mail_refuge = ?");
+            stmt2.setDate(1,res);
             stmt2.setString(2,mail_refuge);
             ResultSet rset2 = stmt2.executeQuery();
 
             int[] tabDateRes = new int[nb_nuit];
             while(rset2.next()){
+
                 int diffdate = rset2.getInt(1);
                 int nbNUit = rset2.getInt(2);
                 if ((diffdate<0) && (diffdate +nbNUit >0) ){
-                    int fin = (diffdate+nbNUit+1<nb_nuit)?diffdate+nbNUit+1:nb_nuit;
+                    long fin = (diffdate + nbNUit+1<nb_nuit)?diffdate+nbNUit+1:nb_nuit;
                     for (int i=0;i<fin ;i++){
                         tabDateRes[i]+=1;
                     }
@@ -58,14 +59,11 @@ public class ReservationRefuge{
             }
 
 
-            if (manger && rset.getInt("nb_places_repas")==0){
-                System.out.println("Désolé, il ne reste plus de place pour manger");
-                return 2;
-            }
-            if (dormir && rset.getInt("nb_places_nuits")==0){
+            if (!dormir){
                 System.out.println("Désolé, il ne reste plus de place pour dormir");
                 return 3;
             }
+            /*
             if (dormir){
                 stmt = conn.prepareStatement(UpdateNbPlaceNuits);
                 stmt.setString(1, nom_refuge);
@@ -75,7 +73,7 @@ public class ReservationRefuge{
                 stmt = conn.prepareStatement(UpdateNbPlaceRepas);
                 stmt.setString(1, nom_refuge);
                 stmt.executeUpdate();
-            }
+            }*/
             return 0;
         }catch (SQLException e){
             System.err.println("Verifie le nom du refuge fourni, il ne correspond à aucun refuge");
@@ -86,7 +84,7 @@ public class ReservationRefuge{
         }
     }
 
-    public void insertReserveRefuge(Connection conn,int userid,String mail,Timestamp date,int nb_nuit){
+    public void insertReserveRefuge(Connection conn,int userid,String mail,Date date,int nb_nuit){
         try {
 
 
@@ -94,7 +92,7 @@ public class ReservationRefuge{
                     ("Insert Into RESERVATION_REFUGE(?,?,?,?,?)");
             stmt.setInt(1, userid);
             stmt.setString(2, mail);
-            stmt.setTimestamp(3, date);
+            stmt.setDate(3, date);
             stmt.setInt(5, nb_nuit);
             int rset = stmt.executeUpdate();
             System.out.println("Reservation effectué, il ne vous reste plus qu'à payer");
