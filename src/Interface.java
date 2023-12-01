@@ -719,6 +719,10 @@ public class Interface {
         return max + entier;
     }
         //L'utilisateur exerce son droit à l'oubli : il ne veut plus garder ses infos personnelles dans notre système
+    private int fonctionHashInjective(int entier, int max){
+        return entier+max;
+    }
+        //L'utilisateur exerce son droit à l'oubli : il ne veut plus garder ses infos personnelles dans notre système
     public void supprimerDonneesPersonnelles() {
         try {
 
@@ -749,10 +753,11 @@ public class Interface {
                     deleteMemberQuery.setString(1, mail_user);
                     deleteMemberQuery.executeUpdate(); //On supprime le membre de notre système
 
-                    String updateIdUser= "INSERT INTO utilisateur (id_user) VALUES (?)";
-                    PreparedStatement updateIdUserQuery = conn.prepareStatement(updateIdUser);
-                    updateIdUserQuery.setInt(1,newIdUser);
-                    updateIdUserQuery.executeUpdate();
+
+                    String insertIdUser= "INSERT INTO utilisateur (id_user) VALUES (?)";
+                    PreparedStatement insertIdUserQuery = conn.prepareStatement(insertIdUser);
+                    insertIdUserQuery.setInt(1,newIdUser);
+                    insertIdUserQuery.executeUpdate();
 
                     String updateIdUserAdherent= "UPDATE adherent SET id_user = ? WHERE id_user = ? ";
                     PreparedStatement updateIdUserAdherentQuery = conn.prepareStatement(updateIdUserAdherent);
@@ -777,6 +782,30 @@ public class Interface {
                     deleteIdUserQuery.setInt(1,user.getIdUser());
                     deleteIdUserQuery.executeUpdate();
 
+
+
+                    String insertIdAdh= "INSERT INTO adherent (id_adh,id_user) VALUES (?,?)";
+                    PreparedStatement insertIdAdhQuery = conn.prepareStatement(insertIdAdh);
+                    insertIdAdhQuery.setInt(1,newIdUser);
+                    insertIdAdhQuery.setInt(2,newIdUser);
+                    insertIdAdhQuery.executeUpdate();
+
+                    String updateIdAdhReservationFormation= "UPDATE reservation_formation SET id_adh = ? WHERE id_adh = ? ";
+                    PreparedStatement updateIdAdhReservationFormationQuery = conn.prepareStatement(updateIdAdhReservationFormation);
+                    updateIdAdhReservationFormationQuery.setInt(1,newIdUser);
+                    updateIdAdhReservationFormationQuery.setInt(2,user.getIdAdh());
+                    updateIdAdhReservationFormationQuery.executeUpdate();
+
+                    String updateIdUserLocationMateriel= "UPDATE location_materiel SET id_adh = ? WHERE id_adh = ? ";
+                    PreparedStatement updateIdUserLocationMaterielQuery = conn.prepareStatement(updateIdUserLocationMateriel);
+                    updateIdUserLocationMaterielQuery.setInt(1,newIdUser);
+                    updateIdUserLocationMaterielQuery.setInt(2,user.getIdAdh());
+                    updateIdUserLocationMaterielQuery.executeUpdate();
+
+                    String deleteIdAdh= "DELETE FROM adherent WHERE id_adh = ? ";
+                    PreparedStatement deleteIdAdhQuery = conn.prepareStatement(deleteIdAdh);
+                    deleteIdAdhQuery.setInt(1,user.getIdAdh());
+                    deleteIdAdhQuery.executeUpdate();
 
 
                     System.out.println("Oups !!! Ça nous fait vraiment de la peine de vous partir !! ");
