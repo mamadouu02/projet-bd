@@ -333,6 +333,8 @@ public class Interface {
         String refuge = getCmd();
         System.out.println("Date de reservation (YYYY-MM-DD) :");
         Date date_res = getDate();
+        System.out.println("Heure de reservation (hh:mm) :");
+        String heure_res = getCmd();
         System.out.println("Choississez une option :");
         System.out.println("[0] pas Manger et pas dormir");
         System.out.println("[1] Manger et Pas dormir");
@@ -348,7 +350,7 @@ public class Interface {
         switch (res){
             case 0 :
 
-                 Resrefuge.insertReserveRefuge(conn,user.getIdUser(),user.getMail(),date_res, nbNuits);
+                 Resrefuge.insertReserveRefuge(conn,user.getIdUser(),user.getMail(),date_res,heure_res, nbNuits);
                  break;
             case 1:
                 System.out.println("Choississez une option :");
