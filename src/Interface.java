@@ -600,7 +600,7 @@ public class Interface {
 
         try {
             String id_adh_connecte = String.valueOf(user.getIdAdh());
-            String getCoutMaterielAbime = "SELECT (l.prix_caution*q.nb_pieces_perdues) FROM quantite_materiel q JOIN lot l ON q.marque = l.marque AND q.modele = l.modele AND q.annee_achat = l.annee_achat JOIN location_materiel lm ON q.id_res_materiel = lm.id_res_materiel WHERE lm.id_adh = ?";
+            String getCoutMaterielAbime = "SELECT SUM(l.prix_caution*q.nb_pieces_perdues) FROM quantite_materiel q JOIN lot l ON q.marque = l.marque AND q.modele = l.modele AND q.annee_achat = l.annee_achat JOIN location_materiel lm ON q.id_res_materiel = lm.id_res_materiel WHERE lm.id_adh = ?";
             PreparedStatement getCoutMaterielAbimeSQL = conn.prepareStatement(getCoutMaterielAbime);
             getCoutMaterielAbimeSQL.setString(1, id_adh_connecte);
 
