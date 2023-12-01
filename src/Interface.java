@@ -715,9 +715,6 @@ public class Interface {
         }
     }
 
-    private int fonctionHashInjective(int entier, int max) {
-        return max + entier;
-    }
         //L'utilisateur exerce son droit à l'oubli : il ne veut plus garder ses infos personnelles dans notre système
     private int fonctionHashInjective(int entier, int max){
         return entier+max;
