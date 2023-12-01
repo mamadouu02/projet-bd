@@ -41,7 +41,7 @@ public class Repas {
                     this.diner = true;
                 }
                 else if (rset.getString(1).compareTo("souper")==0){
-                    this.diner = true;
+                    this.souper = true;
                 }
             }
             Repas repasRefuge = new Repas(this.dejeuner,this.casse_croute,this.diner,this.souper);

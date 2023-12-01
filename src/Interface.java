@@ -373,17 +373,20 @@ public class Interface {
                 System.out.println("[0] non");
                 System.out.println("[1] oui");
                 dejeuner = (getInt()==1);
-            }else if(typeRepas.getCasse_croute()){
+            }
+            if(typeRepas.getCasse_croute()){
                 System.out.println("\nVeux-tu un Casse_croute :");
                 System.out.println("[0] non");
                 System.out.println("[1] oui");
                 case_croute = (getInt()==1);
-            }else if(typeRepas.getDiner()){
+            }
+            if(typeRepas.getDiner()){
                 System.out.println("\nVeux-tu un Diner :");
                 System.out.println("[0] non");
                 System.out.println("[1] oui");
                 diner = (getInt()==1);
-            }else if(typeRepas.getSouper()){
+            }
+            if(typeRepas.getSouper()){
                 System.out.println("\nVeux-tu un Souper:");
                 System.out.println("[0] non");
                 System.out.println("[1] oui");

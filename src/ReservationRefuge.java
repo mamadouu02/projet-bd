@@ -36,6 +36,7 @@ public class ReservationRefuge{
                     return 1;
                 }
             }
+            System.out.println(nb_places_nuits);
             PreparedStatement stmt2 = conn.prepareStatement
                     ("SELECT date_res_refuge -  ? ,nb_nuits from reservation_refuge where mail_refuge = ?");
             stmt2.setDate(1,res);
@@ -74,18 +75,24 @@ public class ReservationRefuge{
             }
             if (manger){
                 for (int i=0;i<4;i++){
+                    int compte = 1;
                     if(RepasVoulu[i]==null) {
 
                     }else{
                         PreparedStatement stmt3 = conn.prepareStatement
-                                ("SELECT nb_repas from quantite_repas where mail_refuge = ? And types_repas = ");
+                                ("SELECT nb_repas from quantite_repas where mail_refuge = ? And type_repas = ?");
                         stmt3.setString(1,mail_refuge);
                         stmt3.setString(2,RepasVoulu[i]);
+
                         ResultSet rset3 = stmt3.executeQuery();
-                        if (rset3.getInt(1)>nbRepastot){
-                            System.out.println("Désolé il ne reste plus de "+ RepasVoulu[i] );
+                        while (rset3.next()) {
+                            compte += rset3.getInt(1);
+                            }
+                        if (compte >= nbRepastot) {
+                            System.out.println("Désolé il ne reste plus de " + RepasVoulu[i]);
                             return 2;
                         }
+
                     }
 
                 }
@@ -114,7 +121,6 @@ public class ReservationRefuge{
             stmt.setDate(3, date);
             stmt.setString(4, heure_res);
             stmt.setInt(5, nb_nuit);
-            System.out.println("\n" + userid + " " + mail_refuge + " " + date + " " + heure_res + " " + nb_nuit);
             stmt.executeUpdate();
             System.out.println("\nReservation effectuée, il ne vous reste plus qu'à payer");
             conn.commit();
