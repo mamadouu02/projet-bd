@@ -55,7 +55,7 @@ public class ReservationRefuge{
                     for (int i=0;i<fin ;i++){
                         tabDateRes[i]+=1;
                     }
-                }else if(diffdate>0){
+                }else if(diffdate>=0){
                     for (int i=diffdate;i<nb_nuit;i++){
                         tabDateRes[i]+=1;
                     }
