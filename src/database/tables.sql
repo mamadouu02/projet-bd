@@ -122,7 +122,8 @@ CREATE TABLE adherent (
 CREATE TABLE reservation_refuge (
     id_user INTEGER NOT NULL,
     mail_refuge VARCHAR(30) NOT NULL,
-    date_res_refuge TIMESTAMP NOT NULL,
+    date_res_refuge DATE NOT NULL,
+    heure VARCHAR(5) NOT NULL,
     nb_nuits INTEGER NOT NULL,
     PRIMARY KEY (id_user, mail_refuge),
     FOREIGN KEY (id_user) REFERENCES utilisateur(id_user),
@@ -131,7 +132,7 @@ CREATE TABLE reservation_refuge (
 
 /* Table quantite_repas */
 CREATE TABLE quantite_repas (
-    id_user NUMBER NOT NULL,
+    id_user INTEGER NOT NULL,
     mail_refuge VARCHAR(30) NOT NULL,
     type_repas VARCHAR(30) NOT NULL,
     nb_repas INTEGER NOT NULL CHECK (nb_repas > 0),
@@ -164,7 +165,7 @@ CREATE TABLE location_materiel (
 
 /* Table quantite_materiel */
 CREATE TABLE quantite_materiel (
-    id_res_materiel NUMBER NOT NULL,
+    id_res_materiel INTEGER NOT NULL,
     marque VARCHAR(30) NOT NULL,
     modele VARCHAR(30) NOT NULL,
     annee_achat INTEGER NOT NULL,

@@ -1,5 +1,3 @@
-import com.sun.jdi.ClassNotPreparedException;
-
 import java.sql.*;
 import java.util.Scanner;
 

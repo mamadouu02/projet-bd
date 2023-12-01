@@ -228,22 +228,22 @@ INSERT INTO utilisateur (mail_user) VALUES ('magic@lakers.com');
 
 
 /* Table reservation_refuge */
-INSERT INTO reservation_refuge VALUES (1, 'refuge0@gmail.com', TIMESTAMP '2023-12-01 18:00:00', 2);
-INSERT INTO reservation_refuge VALUES (2, 'refuge1@gmail.com', TIMESTAMP '2023-12-05 20:30:00', 3);
-INSERT INTO reservation_refuge VALUES (3, 'refuge2@gmail.com', TIMESTAMP '2023-12-10 16:45:00', 1);
-INSERT INTO reservation_refuge VALUES (4, 'refuge1@gmail.com', TIMESTAMP '2023-12-02 21:15:00', 2);
-INSERT INTO reservation_refuge VALUES (5, 'refuge2@gmail.com', TIMESTAMP '2023-12-08 19:00:00', 4);
-INSERT INTO reservation_refuge VALUES (6, 'refuge0@gmail.com', TIMESTAMP '2023-12-15 19:30:00', 1);
-INSERT INTO reservation_refuge VALUES (7, 'refuge1@gmail.com', TIMESTAMP '2023-12-20 22:00:00', 2);
-INSERT INTO reservation_refuge VALUES (7, 'refuge3@gmail.com', TIMESTAMP '2023-08-01 22:00:00', 2);
-INSERT INTO reservation_refuge VALUES (8, 'refuge2@gmail.com', TIMESTAMP '2023-12-25 18:15:00', 3);
-INSERT INTO reservation_refuge VALUES (9, 'refuge1@gmail.com', TIMESTAMP '2023-12-18 20:45:00', 1);
-INSERT INTO reservation_refuge VALUES (10, 'refuge2@gmail.com', TIMESTAMP '2023-12-23 21:30:00', 2);
-INSERT INTO reservation_refuge VALUES (11, 'refuge1@gmail.com', TIMESTAMP '2023-12-30 19:45:00', 3);
-INSERT INTO reservation_refuge VALUES (12, 'refuge2@gmail.com', TIMESTAMP '2023-12-17 20:00:00', 1);
-INSERT INTO reservation_refuge VALUES (13, 'refuge0@gmail.com', TIMESTAMP '2023-12-28 22:15:00', 2);
-INSERT INTO reservation_refuge VALUES (14, 'refuge1@gmail.com', TIMESTAMP '2023-12-13 18:30:00', 3);
-INSERT INTO reservation_refuge VALUES (15, 'refuge2@gmail.com', TIMESTAMP '2023-12-22 19:00:00', 1);
+INSERT INTO reservation_refuge VALUES (1, 'refuge0@gmail.com', DATE '2023-12-01', '18:00', 2);
+INSERT INTO reservation_refuge VALUES (2, 'refuge1@gmail.com', DATE '2023-12-05', '20:30', 3);
+INSERT INTO reservation_refuge VALUES (3, 'refuge2@gmail.com', DATE '2023-12-10', '16:45', 1);
+INSERT INTO reservation_refuge VALUES (4, 'refuge1@gmail.com', DATE '2023-12-02', '21:15', 2);
+INSERT INTO reservation_refuge VALUES (5, 'refuge2@gmail.com', DATE '2023-12-08', '19:00', 4);
+INSERT INTO reservation_refuge VALUES (6, 'refuge0@gmail.com', DATE '2023-12-15', '19:30', 1);
+INSERT INTO reservation_refuge VALUES (7, 'refuge1@gmail.com', DATE '2023-12-20', '22:00', 2);
+INSERT INTO reservation_refuge VALUES (7, 'refuge3@gmail.com', DATE '2023-08-01', '22:00', 2);
+INSERT INTO reservation_refuge VALUES (8, 'refuge2@gmail.com', DATE '2023-12-25', '18:15', 3);
+INSERT INTO reservation_refuge VALUES (9, 'refuge1@gmail.com', DATE '2023-12-18', '20:45', 1);
+INSERT INTO reservation_refuge VALUES (10, 'refuge2@gmail.com', DATE '2023-12-23', '21:30', 2);
+INSERT INTO reservation_refuge VALUES (11, 'refuge1@gmail.com', DATE '2023-12-30', '19:45', 3);
+INSERT INTO reservation_refuge VALUES (12, 'refuge2@gmail.com', DATE '2023-12-17', '20:00', 1);
+INSERT INTO reservation_refuge VALUES (13, 'refuge0@gmail.com', DATE '2023-12-28', '22:15', 2);
+INSERT INTO reservation_refuge VALUES (14, 'refuge1@gmail.com', DATE '2023-12-13', '18:30', 3);
+INSERT INTO reservation_refuge VALUES (15, 'refuge2@gmail.com', DATE '2023-12-22', '19:00', 1);
 
 
 /* Table quantite_repas */

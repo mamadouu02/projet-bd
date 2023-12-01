@@ -3,8 +3,8 @@ import java.sql.*;
 public class JDBC {
 
     private static String url = "jdbc:oracle:thin:@oracle1.ensimag.fr:1521:oracle1";
-    private static String user = "akliaib";
-    private static String passwd = "akliaib";
+    private static String user = "thiongam";
+    private static String passwd = "thiongam";
     private static Connection conn;
 
     public static Connection getConnection() {
