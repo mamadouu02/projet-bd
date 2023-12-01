@@ -500,10 +500,11 @@ public class Interface {
 
             resMateriel.addLot(lot, qte);
 
-            // System.out.println("\nSi vous avez fini, tapez exit pour revenir au menu, sinon, tapez la marque du prochain matériel à ajouter.");
+            System.out.println("\nSi vous avez fini, tapez exit pour revenir au menu, sinon, tapez la marque du prochain matériel à ajouter.");
 
             System.out.println("\nMarque :");
-            cmd = "exit";
+            //cmd = "exit";
+            cmd=getCmd();
         }
 
         if (resMateriel.getListLotReserve().isEmpty()) {
@@ -514,24 +515,24 @@ public class Interface {
     }
 
     public void retourMateriel() {
-        String getReservation = "SELECT * FROM quantite_materiel NATURAL JOIN location_materiel WHERE id_adh= ? AND date_retour= ?";
-        String updateQtt = "UPDATE quantite_materiel SET nb_pieces_perdues = ? WHERE id_res_material = ?";
-        String updateLot = "UPDATE lot SET nb_pieces_lot =  nb_pieces_lot - ? WHERE marque = ?, modele = ?, annee_achat = ?";
+        String getReservation = "SELECT * FROM quantite_materiel NATURAL JOIN location_materiel WHERE id_adh= ? AND id_res_materiel= ?";
+        String updateQtt = "UPDATE quantite_materiel SET nb_pieces_perdues = ? WHERE id_res_materiel = ? AND marque = ? AND modele = ? AND annee_achat = ?";
+        String updateLot = "UPDATE lot SET nb_pieces_lot =  nb_pieces_lot - ? WHERE marque = ? AND modele = ? AND annee_achat = ?";
 
         System.out.println("Retour Materiel :\n");
         int idAdh = user.getIdAdh();
-        System.out.println("Date de retour AAAA-MM-JJ?\n");
-        Date dateRetour = getDate();
+        System.out.println("Numéro de reservation\n");
+        int numRez = getInt();
         try {
             PreparedStatement getReservationSQL = conn.prepareStatement(getReservation);
             getReservationSQL.setInt(1, idAdh);
-            getReservationSQL.setDate(2, dateRetour);
+            getReservationSQL.setInt(2, numRez);
             ResultSet result = getReservationSQL.executeQuery();
             while (result.next()) {
                 String Marque = result.getString("marque");
                 String Modele = result.getString("modele");
                 int Annee = result.getInt("annee_achat");
-                int idRez = result.getInt("id_res_formation");
+                //int idRez = result.getInt("id_res_formation");
 
                 System.out.println("Quantite perdue pour tel lot");
                 System.out.println(Marque + " " + Modele + " " + Annee);
@@ -541,7 +542,10 @@ public class Interface {
                 //Update QTT
                 PreparedStatement updateQttSQL = conn.prepareStatement(updateQtt);
                 updateQttSQL.setInt(1, qttPerdu);
-                updateQttSQL.setInt(2, idRez);
+                updateQttSQL.setInt(2, numRez);
+                updateQttSQL.setString(3,Marque);
+                updateQttSQL.setString(4,Modele);
+                updateQttSQL.setInt(5,Annee);
                 updateQttSQL.executeUpdate();
 
                 //Update Lot
@@ -552,12 +556,14 @@ public class Interface {
                 updateLotSQL.setInt(4, Annee);
                 updateLotSQL.executeUpdate();
 
-
-                conn.commit();
             }
+            conn.commit();
             result.close();
+            System.out.println("Retour au menu");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("ERREUR Lors du retour de Materiel");
+
         }
     }
 
