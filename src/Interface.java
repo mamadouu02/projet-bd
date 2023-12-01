@@ -244,9 +244,6 @@ public class Interface {
             if (cmd.equals("1")){
                 String getMaterielCategorie = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot, l.sous_categorie " +
                         "FROM lot l " +
-                        "JOIN activites_lot al ON l.marque = al.marque AND l.modele = al.modele AND l.annee_achat = al.annee_achat " +
-                        "JOIN quantite_materiel qm ON al.marque = qm.marque AND al.modele = qm.modele AND al.annee_achat = qm.annee_achat " +
-                        "JOIN activite a ON al.activite = a.activite " +
                         "ORDER BY l.sous_categorie ASC";
 
                 PreparedStatement getMaterielCategorieSQL = conn.prepareStatement(getMaterielCategorie);
@@ -290,9 +287,6 @@ public class Interface {
             } else if (cmd.equals("2")) {
                 String getMaterielActivite = "SELECT l.marque, l.modele, l.nb_pieces_lot, l.nb_pieces_lot, l.activite " +
                         "FROM lot l " +
-                        "JOIN activites_lot al ON l.marque = al.marque AND l.modele = al.modele AND l.annee_achat = al.annee_achat " +
-                        "JOIN quantite_materiel qm ON al.marque = qm.marque AND al.modele = qm.modele AND al.annee_achat = qm.annee_achat " +
-                        "JOIN activite a ON al.activite = a.activite " +
                         "ORDER BY l.activite ASC";
 
                 PreparedStatement getMaterielActiviteSQL = conn.prepareStatement(getMaterielActivite);
