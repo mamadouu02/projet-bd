@@ -255,8 +255,13 @@ public class Interface {
                 int i = 0;
                 boolean bool = true;
                 boolean debut = false;
+                String cat = "";
                 while (result.next()) {
-                    String cat = result.getString(5);
+                    if (debut && !result.getString(5).equals(cat)){
+                        i++;
+                        System.out.println("Catégorie n°" + i + " : " + result.getString(5));
+                    }
+                    cat = result.getString(5);
                     if (!debut) {
                         i++;
                         System.out.println("Catégorie n°" + i + " : " + cat);
@@ -276,8 +281,10 @@ public class Interface {
                                 "\t Modèle : " + result.getString(2) + "\n" +
                                 "\t Nombre de pièces total : " + result.getString(3) + "\n" +
                                 "\t Nombre de pièces disponibles :" + result.getString(4) + "\n");
+                        debut = true;
+                    } else {
+                        debut = false;
                     }
-                    debut = bool && !result.getString(5).equals(cat);
                 }
                 result.close();
             } else if (cmd.equals("2")) {
@@ -294,8 +301,13 @@ public class Interface {
                 int i = 0;
                 boolean bool = true;
                 boolean debut = false;
+                String act = "";
                 while (result.next()) {
-                    String act = result.getString(5);
+                    if (debut && !result.getString(5).equals(act)){
+                        i++;
+                        System.out.println("Activité n°" + i + " : " + result.getString(5));
+                    }
+                    act = result.getString(5);
                     if (!debut) {
                         i++;
                         System.out.println("Activité n°" + i + " : " + act);
@@ -315,8 +327,10 @@ public class Interface {
                                 "\t Modèle : " + result.getString(2) + "\n" +
                                 "\t Nombre de pièces total : " + result.getString(3) + "\n" +
                                 "\t Nombre de pièces disponibles :" + result.getString(4) + "\n");
+                        debut = true;
+                    } else {
+                        debut = false;
                     }
-                    debut = bool && !result.getString(5).equals(act);
                 }
                 result.close();
             } else {
