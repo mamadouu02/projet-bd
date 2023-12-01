@@ -27,12 +27,14 @@ public class ReservationRefuge{
                 nbRepastot = rset.getInt(5);
 
                 mail_refuge  = rset.getString("mail_refuge");
+                
                 if ( res.compareTo(rset.getDate("date_ouverture"))<0) {
-                    System.out.println("Date fournie < date d'ouverture du refuge");
+                    System.out.println("Date fournie < date d'ouverture du refuge (" + rset.getDate(1) + ")");
                     return 1;
                 }
+                
                 if ( res.compareTo(rset.getDate("date_fermeture"))>0) {
-                    System.out.println("Date fournie > date de fermeture du refuge");
+                    System.out.println("Date fournie < date d'ouverture du refuge (" + rset.getDate(2) + ")");
                     return 1;
                 }
             }
