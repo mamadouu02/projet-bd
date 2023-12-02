@@ -1,5 +1,5 @@
 public class User {
-    
+
     private int idUser;
     private String mail;
     private String nom;
