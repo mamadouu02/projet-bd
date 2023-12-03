@@ -754,10 +754,10 @@ public class Interface {
 
     private void consulterSolde() {
         try {
-            String id_user_connecte = String.valueOf(user.getIdUser());
+            String idUserConnecte = String.valueOf(user.getIdUser());
             String getCoutReservationRefuge = "SELECT SUM(res_r.nb_nuits * r.prix_nuit) FROM reservation_refuge res_r JOIN refuge r ON res_r.mail_refuge = r.mail_refuge WHERE res_r.id_user = ?";
             PreparedStatement getCoutReservationRefugeSQL = conn.prepareStatement(getCoutReservationRefuge);
-            getCoutReservationRefugeSQL.setString(1, id_user_connecte);
+            getCoutReservationRefugeSQL.setString(1, idUserConnecte);
 
             ResultSet result = getCoutReservationRefugeSQL.executeQuery();
             result.next();
@@ -768,10 +768,10 @@ public class Interface {
         }
 
         try {
-            String id_adh_connecte = String.valueOf(user.getIdAdh());
+            String idAdhConnecte = String.valueOf(user.getIdAdh());
             String getCoutReservationFormation = "SELECT SUM(f.prix_formation) FROM formation f JOIN reservation_formation res_f ON res_f.annee_formation = f.annee_formation AND res_f.rang_formation = f.rang_formation WHERE res_f.id_adh = ? AND res_f.rang_la = 0";
             PreparedStatement getCoutReservationFormationSQL = conn.prepareStatement(getCoutReservationFormation);
-            getCoutReservationFormationSQL.setString(1, id_adh_connecte);
+            getCoutReservationFormationSQL.setString(1, idAdhConnecte);
 
             ResultSet result = getCoutReservationFormationSQL.executeQuery();
             result.next();
@@ -782,10 +782,10 @@ public class Interface {
         }
 
         try {
-            String id_adh_connecte = String.valueOf(user.getIdAdh());
+            String idAdhConnecte = String.valueOf(user.getIdAdh());
             String getCoutMaterielAbime = "SELECT SUM(l.prix_caution * q.nb_pieces_perdues) FROM quantite_materiel q JOIN lot l ON q.marque = l.marque AND q.modele = l.modele AND q.annee_achat = l.annee_achat JOIN location_materiel lm ON q.id_res_materiel = lm.id_res_materiel WHERE lm.id_adh = ?";
             PreparedStatement getCoutMaterielAbimeSQL = conn.prepareStatement(getCoutMaterielAbime);
-            getCoutMaterielAbimeSQL.setString(1, id_adh_connecte);
+            getCoutMaterielAbimeSQL.setString(1, idAdhConnecte);
 
             ResultSet result = getCoutMaterielAbimeSQL.executeQuery();
             result.next();
@@ -796,10 +796,10 @@ public class Interface {
         }
 
         try {
-            String id_user_connecte = String.valueOf(user.getIdUser());
+            String idUserConnecte = String.valueOf(user.getIdUser());
             String getSommeRemboursee = "SELECT somme_remboursee FROM utilisateur WHERE id_user = ?";
             PreparedStatement getSommeRembourseeSQL = conn.prepareStatement(getSommeRemboursee);
-            getSommeRembourseeSQL.setString(1, id_user_connecte);
+            getSommeRembourseeSQL.setString(1, idUserConnecte);
 
             ResultSet result = getSommeRembourseeSQL.executeQuery();
             result.next();
@@ -812,19 +812,19 @@ public class Interface {
 
     private void remboursement() {
         try {
-            String id_adh_connecte = String.valueOf(user.getIdAdh());
+            String idAdhConnecte = String.valueOf(user.getIdAdh());
             String getCoutMaterielAbime = "SELECT SUM(l.prix_caution * q.nb_pieces_perdues) FROM quantite_materiel q JOIN lot l ON q.marque = l.marque AND q.modele = l.modele AND q.annee_achat = l.annee_achat JOIN location_materiel lm ON q.id_res_materiel = lm.id_res_materiel WHERE lm.id_adh = ?";
             PreparedStatement getCoutMaterielAbimeSQL = conn.prepareStatement(getCoutMaterielAbime);
-            getCoutMaterielAbimeSQL.setString(1, id_adh_connecte);
+            getCoutMaterielAbimeSQL.setString(1, idAdhConnecte);
             ResultSet result = getCoutMaterielAbimeSQL.executeQuery();
             result.next();
             int sommeTotal = result.getInt(1);
             result.close();
 
-            String id_user_connecte = String.valueOf(user.getIdUser());
+            String idUserConnecte = String.valueOf(user.getIdUser());
             String getSommeRemboursee = "SELECT somme_remboursee FROM utilisateur WHERE id_user = ?";
             PreparedStatement getSommeRembourseeSQL = conn.prepareStatement(getSommeRemboursee);
-            getSommeRembourseeSQL.setString(1, id_user_connecte);
+            getSommeRembourseeSQL.setString(1, idUserConnecte);
             result = getSommeRembourseeSQL.executeQuery();
             result.next();
             int sommeRemboursee = result.getInt(1);
@@ -843,7 +843,7 @@ public class Interface {
             aRembourser -= Integer.valueOf(cmd);
 
             if (aRembourser >= 0) {
-                getSommeRembourseeMAJSQL.setString(2, id_user_connecte);
+                getSommeRembourseeMAJSQL.setString(2, idUserConnecte);
                 result = getSommeRembourseeMAJSQL.executeQuery();
                 result.next();
                 result.close();
