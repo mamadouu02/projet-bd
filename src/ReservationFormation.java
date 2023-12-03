@@ -120,7 +120,7 @@ public class ReservationFormation {
 
     public void update() {
         try {
-            String query = "UPDATE reservation_formation SET rang_LA = rang_LA - 1 WHERE rang_LA > 0";
+            String query = "UPDATE reservation_formation SET rang_la = rang_la - 1 WHERE rang_la > 0";
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(query);
             stmt.close();

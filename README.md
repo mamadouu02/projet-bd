@@ -1,3 +1,9 @@
+## Compilation et exécution
+
+La base de données doit préalablement être créée et remplie en exécutant les requêtes SQL contenues dans les fichiers `deletion.sql`, `tables.sql` et `insertion.sql` du répertoire `src/database`.
+
+Pour exécuter le démonstrateur, il suffit d'entrer la commande `make` dans le répertoire racine du projet.
+
 ## Analyse statique
 
 ### Propriétés
